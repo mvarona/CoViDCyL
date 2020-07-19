@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CoViD - CyL - Tabla completa diaria tasa enfermos por zona básica de salud - Castilla y León</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta http-equiv="Content-Language" content="es"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<h1>Tasa de enfermos por zonas básicas de salud - Datos CoViD-19 CyL</h1>
+	<h2>Actualización de lunes a viernes</h2>
+	<h2>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h2>
+	<hr/>
+	<br/>
+	<section>
+		<div id="hot"></div>
+	</section>
+	<script type="text/javascript">
+
+		 var dataObject;
+
+		 /*$.getJSON('data.json', function(response){
+		       dataObject = response;
+		       alert(dataObject.property);
+		 })
+		 .success(function() { alert("success"); })
+		 .error(function() { alert("error"); })
+		 .complete(function() { alert("complete"); });
+		*/
+
+		dataObject = [{"x_geo": -6.4762406, "tasax100": 0.006822213, "totalenfermedad": 1, "tipo_centro": "Rural", "tasax10000_pcr_positivos_sintomas": 0.0, "cs": 170606, "posicion": [40.6126798, -6.4762406], "tasax100_14dias": 0.027288853, "tasapcr_positivos_sintomasx10000_14dias": 0.0, "tasax10000_pcr_positivos": 0.0, "totalenfermedad_14dias": 4, "provincia": "Salamanca", "nombregerencia": "Gerencia de Salamanca", "tsi": 14658, "fecha": "2020-07-16", "gerencia": "1706", "tasapcr_positivos_sintomasx10000_7dias": 0.0, "pcr_positivos_sintomas_7dias": 0, "pcr_positivos_sintomas": 0, "pcr_positivos": 0, "centro": "C.S. CIUDAD RODRIGO", "totalenfermedad_7dias": 2, "y_geo": 40.6126798, "pcr_positivos_sintomas_14dias": 0, "pcr_realizados": 2, "municipio": "ATALAYA (LA)/BODON (EL)/CASTILLEJO DE MARTIN VIEJO/ENCINA (LA)/SERRADILLA DEL ARROYO/SERRADILLA DEL LLANO/CIUDAD RODRIGO/MONSAGRO/PASTORES/SAELICES EL CHICO/SANCTI-SPIRITUS/TENEBRON/ZAMARRA/CARPIO DE AZABA", "zbs_geo": "CIUDAD RODRIGO", "tasax100_pcr_realizados": 0.013644426, "tasax100_7dias": 0.013644426}, {"x_geo": -5.6938414, "tasax100": 0.004865943, "totalenfermedad": 1, "tipo_centro": "Urbano", "tasax10000_pcr_positivos_sintomas": 0.0, "cs": 170607, "posicion": [40.9687413, -5.6938414], "tasax100_14dias": 0.024329716, "tasapcr_positivos_sintomasx10000_14dias": 0.0, "tasax10000_pcr_positivos": 0.0, "totalenfermedad_14dias": 5, "provincia": "Salamanca", "nombregerencia": "Gerencia de Salamanca", "tsi": 20551, "fecha": "2020-07-16", "gerencia": "1706", "tasapcr_positivos_sintomasx10000_7dias": 0.0, "pcr_positivos_sintomas_7dias": 0, "pcr_positivos_sintomas": 0, "pcr_positivos": 0, "centro": "C.S. MIGUEL ARMIJO", "totalenfermedad_7dias": 4, "y_geo": 40.9687413, "pcr_positivos_sintomas_14dias": 0, "pcr_realizados": 8, "municipio": "SALAMANCA", "zbs_geo": "MIGUEL ARMIJO", "tasax100_pcr_realizados": 0.038927546, "tasax100_7dias": 0.019463773}, {}, {}];
+
+
+		var hotElement = document.querySelector('#hot');
+		var hotElementContainer = hotElement.parentNode;
+		var hotSettings = {
+		  licenseKey: 'non-commercial-and-evaluation',
+		  data: dataObject,
+		  columns: [
+		    {
+		      data: 'fecha',
+		      type: 'date',
+		      dateFormat: 'DD/MM/YYYY'
+		    },
+		    {
+		      data: 'nombregerencia',
+		      type: 'text'
+		    },
+		    {
+		      data: 'cs',
+		      type: 'text'
+		    },
+		    {
+		      data: 'centro',
+		      type: 'text'
+		    },
+		    {
+		      data: 'totalenfermedad',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'tasax100',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'totalenfermedad_7dias',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'tasax100_7dias',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'totalenfermedad_14dias',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'tasax100_14dias',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'provincia',
+		      type: 'text'
+		    },
+		    {
+		      data: 'tipo_centro',
+		      type: 'text'
+		    },
+		    {
+		      data: 'pcr_realizados',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'tasax100_pcr_realizados',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'pcr_positivos',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'tasax10000_pcr_positivos',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'pcr_positivos_sintomas',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'tasax10000_pcr_positivos_sintomas',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'pcr_positivos_sintomas_7dias',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'tasapcr_positivos_sintomasx10000_7dias',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'pcr_positivos_sintomas_14dias',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'tasapcr_positivos_sintomasx10000_14dias',
+		      type: 'numeric'
+		    },
+		    {
+		      data: 'x_geo',
+		      type: 'text'
+		    },
+		    {
+		      data: 'y_geo',
+		      type: 'text'
+		    },
+		    {
+		      data: 'zbs_geo',
+		      type: 'text'
+		    },
+		    {
+		      data: 'posicion',
+		      type: 'text'
+		    },
+		    {
+		      data: 'municipio',
+		      type: 'text'
+		    },
+		    {
+		      data: 'gerencia',
+		      type: 'text'
+		    },
+		    {
+		      data: 'tsi',
+		      type: 'numeric'
+		    },
+		    
+		    
+		  ],
+		  stretchH: 'all',
+		  width: '90%',
+		  height: 300,
+		  autoWrapRow: true,
+		  filters: true,
+		  dropdownMenu: true,
+		  rowHeaders: true,
+		  colHeaders: [
+		    'FECHA',
+			'NOMBREGERENCIA',
+			'CS',
+			'CENTRO',
+			'TOTALENFERMEDAD',
+			'TASAx100',
+			'TOTALENFERMEDAD_7DIAS',
+			'TASAx100_7DIAS',
+			'TOTALENFERMEDAD_14DIAS',
+			'TASAx100_14DIAS',
+			'PROVINCIA',
+			'TIPO_CENTRO',
+			'PCR_REALIZADOS',
+			'TASAx100_PCR_REALIZADOS',
+			'PCR_POSITIVOS',
+			'TASAx10000_PCR_POSITIVOS',
+			'PCR_POSITIVOS_SINTOMAS',
+			'TASAx10000_PCR_POSITIVOS_SINTOMAS',
+			'PCR_POSITIVOS_SINTOMAS_7DIAS',
+			'TASAPCR_POSITIVOS_SINTOMASx10000_7DIAS',
+			'PCR_POSITIVOS_SINTOMAS_14DIAS',
+			'TASAPCR_POSITIVOS_SINTOMASx10000_14DIAS',
+			'x_geo',
+			'y_geo',
+			'zbs_geo',
+			'Posicion',
+			'MUNICIPIO',
+			'GERENCIA',
+			'TSI'
+		  ],
+		  columnSorting: {
+		    indicator: true
+		  },
+		  autoColumnSize: {
+		    samplingRatio: 23
+		  },
+		  columnSummary: [
+		    {
+		      destinationColumn: 4,
+		      destinationRow: 0,
+		      type: 'sum',
+		      forceNumeric: true,
+		      suppressDataTypeErrors: true,
+		      reversedRowCoords: true,
+		      readOnly: true
+		    }
+		  ],
+		  manualRowResize: true,
+		  manualColumnResize: true
+		};
+		var hot = new Handsontable(hotElement, hotSettings);
+	</script>
+</body>
+</html>
