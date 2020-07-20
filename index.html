@@ -16,24 +16,153 @@
 	<h2>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h2>
 	<hr/>
 	<br/>
-	<section>
-		<div id="hot"></div>
+	<section class='main'>
+		<label>Fecha: </label>&nbsp;
+		<input type="text" placeholder="dd/mm/yyyy" id="date">&nbsp;&nbsp;&nbsp;&nbsp;
+		<label>Gerencia: </label>&nbsp;
+		<select id="office">
+			<option value="avila">Gerencia de Ávila</option>
+			<option value="burgos">Gerencia de Burgos</option>
+			<option value="leon">Gerencia de León</option>
+			<option value="palencia">Gerencia de Palencia</option>
+			<option value="ponferrada">Gerencia de Ponferrada</option>
+			<option value="salamanca">Gerencia de Salamanca</option>
+			<option value="segovia">Gerencia de Segovia</option>
+			<option value="soria">Gerencia de Soria</option>
+			<option value="valladolidEste">Gerencia de Valladolid Este</option>
+			<option value="valladolidOeste">Gerencia de Valladolid Oeste</option>
+			<option value="zamora">Gerencia de Zamora</option>
+		</select>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" value="Mostrar" id="show" />
+		<div id="hot"><span id="no-data"><i>No hay datos para los parámetros indicados</i></span></div>
+	</section>
+	<section class='legal'>
+		<p>Datos diarios en cada zona básica de salud. Actualización de lunes a viernes.</p>
+		<p>Incidencia diaria de pacientes enfermos y de porcentaje de personas enfermas por número de tarjetas sanitarias en cada zona básica de salud. También se indican los enfermos y los porcentajes para los últimos 7 y 14 días.</p>
+		<br/>
+		<p>El cálculo de la incidencia de la enfermedad se ha efectuado teniendo en cuenta el número de afectados en relación con el número de tarjetas por zona básica de salud. No se contabilizan aquellas personas que han dejado de tener síntomas compatibles con COVID19. Los datos se recogen desde el 29 de febrero de 2020.</p>
+		<br/>
+		<p>El dato de pacientes enfermos incluye todos los diagnósticos compatibles con coronavirus (neumonía por COVID-19 y enfermedad por COVID-19). El registro de Medora (historia clínica de atención primaria) incluyó hasta el 14 de marzo únicamente pacientes diagnosticados por prueba de PCR (prueba de detección molecular). Desde el 14 de marzo y tras la modiﬁcación de la deﬁnición de enfermedad por el Ministerio de Sanidad, se incluyen pacientes con sospecha clínica de enfermedad.</p>
+		<p>Asimismo se informa de las PCR realizadas y sus porcentajes, así como los datos de PCR positivas y la tasa por 10000 tarjetas sanitarias, tanto de cada día como de los últimos 7 y 14 días.</p>
 	</section>
 	<script type="text/javascript">
 
-		 var dataObject;
+		function isDate(dateTxt){
+			return dateTxt.match(/^(\d{1,2})(\/)(\d{1,2})(\/)(\d{4})$/); // d(d)/m(m)/yyyy
+		}
 
-		 /*$.getJSON('data.json', function(response){
-		       dataObject = response;
-		       alert(dataObject.property);
-		 })
-		 .success(function() { alert("success"); })
-		 .error(function() { alert("error"); })
-		 .complete(function() { alert("complete"); });
-		*/
+		function addLeadingZeroesToDate(dateTxt){
 
-		dataObject = [{"x_geo": -6.4762406, "tasax100": 0.006822213, "totalenfermedad": 1, "tipo_centro": "Rural", "tasax10000_pcr_positivos_sintomas": 0.0, "cs": 170606, "posicion": [40.6126798, -6.4762406], "tasax100_14dias": 0.027288853, "tasapcr_positivos_sintomasx10000_14dias": 0.0, "tasax10000_pcr_positivos": 0.0, "totalenfermedad_14dias": 4, "provincia": "Salamanca", "nombregerencia": "Gerencia de Salamanca", "tsi": 14658, "fecha": "2020-07-16", "gerencia": "1706", "tasapcr_positivos_sintomasx10000_7dias": 0.0, "pcr_positivos_sintomas_7dias": 0, "pcr_positivos_sintomas": 0, "pcr_positivos": 0, "centro": "C.S. CIUDAD RODRIGO", "totalenfermedad_7dias": 2, "y_geo": 40.6126798, "pcr_positivos_sintomas_14dias": 0, "pcr_realizados": 2, "municipio": "ATALAYA (LA)/BODON (EL)/CASTILLEJO DE MARTIN VIEJO/ENCINA (LA)/SERRADILLA DEL ARROYO/SERRADILLA DEL LLANO/CIUDAD RODRIGO/MONSAGRO/PASTORES/SAELICES EL CHICO/SANCTI-SPIRITUS/TENEBRON/ZAMARRA/CARPIO DE AZABA", "zbs_geo": "CIUDAD RODRIGO", "tasax100_pcr_realizados": 0.013644426, "tasax100_7dias": 0.013644426}, {"x_geo": -5.6938414, "tasax100": 0.004865943, "totalenfermedad": 1, "tipo_centro": "Urbano", "tasax10000_pcr_positivos_sintomas": 0.0, "cs": 170607, "posicion": [40.9687413, -5.6938414], "tasax100_14dias": 0.024329716, "tasapcr_positivos_sintomasx10000_14dias": 0.0, "tasax10000_pcr_positivos": 0.0, "totalenfermedad_14dias": 5, "provincia": "Salamanca", "nombregerencia": "Gerencia de Salamanca", "tsi": 20551, "fecha": "2020-07-16", "gerencia": "1706", "tasapcr_positivos_sintomasx10000_7dias": 0.0, "pcr_positivos_sintomas_7dias": 0, "pcr_positivos_sintomas": 0, "pcr_positivos": 0, "centro": "C.S. MIGUEL ARMIJO", "totalenfermedad_7dias": 4, "y_geo": 40.9687413, "pcr_positivos_sintomas_14dias": 0, "pcr_realizados": 8, "municipio": "SALAMANCA", "zbs_geo": "MIGUEL ARMIJO", "tasax100_pcr_realizados": 0.038927546, "tasax100_7dias": 0.019463773}, {}, {}];
+			dateFragments = dateTxt.split("/");
+			day = dateFragments[0];
+			month = dateFragments[1];
+			year = dateFragments[2];
 
+			if (day.length < 2){
+				day = "0" + day;
+			}
+
+			if (month.length < 2){
+				month = "0" + month;
+			}
+
+			newDateTxt = day + "/" + month + "/" + year;
+
+			return newDateTxt;
+		}
+
+		function buildForwardingURL(dateTxt, officeTxt){
+			return "?fecha=" + dateTxt + "&gerencia=" + officeTxt;
+		}
+
+		function buildDataQueryURL(dateTxt, officeTxt){
+			var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
+			var codesOffices = ["Gerencia+de+Ávila", "Gerencia+de+Burgos", "Gerencia+de+León", "Gerencia+de+Palencia", "Gerencia+de+Ponferrada", "Gerencia+de+Salamanca", "Gerencia+de+Segovia", "Gerencia+de+Soria", "Gerencia+de+Valladolid+Este", "Gerencia+de+Valladolid+Oeste", "Gerencia+de+Zamora"];
+
+			var officeIndex = possibleOffices.indexOf(officeTxt);
+			var codeOffice = codesOffices[officeIndex];
+
+			dateFragments = dateTxt.split("/");
+			day = dateFragments[0];
+			month = dateFragments[1];
+			year = dateFragments[2];
+
+			return "https://data.opendatasoft.com/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud@jcyl/download/?format=json&disjunctive.zbs_geo=true&refine.fecha=" + year + "&refine.fecha=" + year + "%2F" + month + "&refine.fecha=" + year + "%2F" + month + "%2F" + day + "&refine.nombregerencia=" + codeOffice + "&timezone=Europe/Berlin";
+		}
+
+		function getUrlParameter(sParam) {
+		    var sPageURL = window.location.search.substring(1),
+		        sURLVariables = sPageURL.split('&'),
+		        sParameterName,
+		        i;
+
+		    for (i = 0; i < sURLVariables.length; i++) {
+		        sParameterName = sURLVariables[i].split('=');
+
+		        if (sParameterName[0] === sParam) {
+		            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+		        }
+		    }
+		}
+
+		var pureObject; // Load JSON file from API URL
+		var dataObject; // Fetch only relevant fields
+
+		dataObject = [];
+
+
+		$(document).ready(function() {
+
+			var date = getUrlParameter("fecha");
+			var office = getUrlParameter("gerencia");
+			var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
+			
+			if (date != undefined && isDate(date)){
+				$('#date').val(date);
+			}
+
+			if (office != undefined && possibleOffices.includes(office)){
+				$("#office").val(office);
+				$("#office option[value=" + office + "]").attr('selected','selected');
+
+				$.getJSON(buildDataQueryURL(date, office), function(response){
+			    	dataObject = response;
+			    	alert(dataObject.property);
+				})
+				.success(function() { alert("success"); })
+				.error(function() { alert("error"); })
+				.complete(function() { alert("complete"); });
+
+			}
+		
+			$('#show').click(function(){
+
+				var dateTxt = $('#date').val();
+				var officeTxt = $("#office").children("option:selected").val();
+				
+				if (dateTxt.length < 8){
+					alert("El formato de la fecha es incorrecto. Debe ser día/mes/año.");
+				} else {
+					if (isDate(dateTxt)){
+						if (dateTxt.length < 10){
+							dateTxt = addLeadingZeroesToDate(dateTxt);
+						}
+						alert(buildForwardingURL(dateTxt, officeTxt));
+					} else {
+						alert("El formato de la fecha es incorrecto. Debe ser día/mes/año.");
+					}
+				}
+
+			});
+
+		});
+
+		for (var i = 0; i < pureObject.length; i++) {
+			dataObject.push(pureObject[i]["fields"]);
+		}
+
+		dataObject.push({});
+		dataObject.push({});
 
 		var hotElement = document.querySelector('#hot');
 		var hotElementContainer = hotElement.parentNode;
@@ -208,6 +337,69 @@
 		  columnSummary: [
 		    {
 		      destinationColumn: 4,
+		      destinationRow: 0,
+		      type: 'sum',
+		      forceNumeric: true,
+		      suppressDataTypeErrors: true,
+		      reversedRowCoords: true,
+		      readOnly: true
+		    },
+		    {
+		      destinationColumn: 6,
+		      destinationRow: 0,
+		      type: 'sum',
+		      forceNumeric: true,
+		      suppressDataTypeErrors: true,
+		      reversedRowCoords: true,
+		      readOnly: true
+		    },
+		    {
+		      destinationColumn: 8,
+		      destinationRow: 0,
+		      type: 'sum',
+		      forceNumeric: true,
+		      suppressDataTypeErrors: true,
+		      reversedRowCoords: true,
+		      readOnly: true
+		    },
+		    {
+		      destinationColumn: 12,
+		      destinationRow: 0,
+		      type: 'sum',
+		      forceNumeric: true,
+		      suppressDataTypeErrors: true,
+		      reversedRowCoords: true,
+		      readOnly: true
+		    },
+		    {
+		      destinationColumn: 14,
+		      destinationRow: 0,
+		      type: 'sum',
+		      forceNumeric: true,
+		      suppressDataTypeErrors: true,
+		      reversedRowCoords: true,
+		      readOnly: true
+		    },
+		    {
+		      destinationColumn: 16,
+		      destinationRow: 0,
+		      type: 'sum',
+		      forceNumeric: true,
+		      suppressDataTypeErrors: true,
+		      reversedRowCoords: true,
+		      readOnly: true
+		    },
+		    {
+		      destinationColumn: 18,
+		      destinationRow: 0,
+		      type: 'sum',
+		      forceNumeric: true,
+		      suppressDataTypeErrors: true,
+		      reversedRowCoords: true,
+		      readOnly: true
+		    },
+		    {
+		      destinationColumn: 20,
 		      destinationRow: 0,
 		      type: 'sum',
 		      forceNumeric: true,

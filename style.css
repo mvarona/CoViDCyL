@@ -17,6 +17,7 @@ html, body {
 
 h1 {
 	font-size: 2.5em;
+	margin-top: 1%;
 }
 
 #hot {
@@ -24,4 +25,24 @@ h1 {
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 2%;
+}
+
+section.main label, section.main input, section.main select {
+	font-size: 1.3em;
+}
+
+.legal {
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 4%;
+}
+
+.legal p {
+	text-align: justify;
+}
+
+#no-data {
+	display: block;
 }
