@@ -44,6 +44,7 @@
 		<br/>
 		<p>El dato de pacientes enfermos incluye todos los diagnósticos compatibles con coronavirus (neumonía por COVID-19 y enfermedad por COVID-19). El registro de Medora (historia clínica de atención primaria) incluyó hasta el 14 de marzo únicamente pacientes diagnosticados por prueba de PCR (prueba de detección molecular). Desde el 14 de marzo y tras la modiﬁcación de la deﬁnición de enfermedad por el Ministerio de Sanidad, se incluyen pacientes con sospecha clínica de enfermedad.</p>
 		<p>Asimismo se informa de las PCR realizadas y sus porcentajes, así como los datos de PCR positivas y la tasa por 10000 tarjetas sanitarias, tanto de cada día como de los últimos 7 y 14 días.</p>
+		<br/><br/><br/>
 	</section>
 	<script type="text/javascript">
 
@@ -131,6 +132,7 @@
 			        url: buildDataQueryURL(date, office),
 			        dataType: 'jsonp',
 			        success: function (data) {
+			            alert("HOLA");
 			            dataObject = data;
 			    		alert(dataObject.property);
 			        }
