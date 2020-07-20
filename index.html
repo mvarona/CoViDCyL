@@ -147,7 +147,7 @@
 						if (dateTxt.length < 10){
 							dateTxt = addLeadingZeroesToDate(dateTxt);
 						}
-						alert(buildForwardingURL(dateTxt, officeTxt));
+						window.location.href = buildForwardingURL(dateTxt, officeTxt);
 					} else {
 						alert("El formato de la fecha es incorrecto. Debe ser día/mes/año.");
 					}
