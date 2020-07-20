@@ -108,6 +108,7 @@
 		var pureObject; // Load JSON file from API URL
 		var dataObject; // Fetch only relevant fields
 
+		pureObject = [];
 		dataObject = [];
 
 
@@ -125,14 +126,15 @@
 				$("#office").val(office);
 				$("#office option[value=" + office + "]").attr('selected','selected');
 
-				$.getJSON(buildDataQueryURL(date, office), function(response){
-			    	dataObject = response;
-			    	alert(dataObject.property);
-				})
-				.success(function() { alert("success"); })
-				.error(function() { alert("error"); })
-				.complete(function() { alert("complete"); });
-
+				$.ajax({
+			        type: 'GET',
+			        url: buildDataQueryURL(date, office),
+			        dataType: 'jsonp',
+			        success: function (data) {
+			            dataObject = data;
+			    		alert(dataObject.property);
+			        }
+			    });
 			}
 		
 			$('#show').click(function(){
