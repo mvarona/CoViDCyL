@@ -18,6 +18,8 @@ html, body {
 h1 {
 	font-size: 2.5em;
 	margin-top: 1%;
+	width: 75%;
+	margin-left: 13%;
 }
 
 span.small {

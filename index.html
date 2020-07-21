@@ -9,9 +9,16 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<meta http-equiv="Content-Language" content="es"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
 </head>
 <body>
-	<h1>Tasa de enfermos por zonas básicas de salud - Datos CoViD-19 CyL</h1>
+	<h1>Tasa de enfermos por zonas básicas de salud -<br/>Datos CoViD-19 CyL</h1>
 	<h2>Actualización de lunes a viernes</h2>
 	<h2>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h2>
 	<hr/>
@@ -91,7 +98,7 @@
 			var officeIndex = possibleOffices.indexOf(officeTxt);
 			var codeOffice = codesOffices[officeIndex];
 
-			if (dateTxt.length == 0){
+			if (dateTxt == undefined || dateTxt.length == 0){
 				return "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?office=" + codeOffice;
 			} else {
 				return "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?date=" + dateTxt + "&office=" + codeOffice;
@@ -100,7 +107,7 @@
 		}
 
 		function buildForwardingURL(dateTxt, officeTxt){
-			if (dateTxt == undefined){
+			if (dateTxt == undefined || dateTxt.length == 0){
 				return "?gerencia=" + officeTxt;
 			} else {
 				return "?fecha=" + dateTxt + "&gerencia=" + officeTxt;
@@ -410,7 +417,10 @@
 			  manualRowResize: true,
 			  manualColumnResize: true
 			};
-			var hot = new Handsontable(hotElement, hotSettings);
+
+			if (dataObject.length > 0){
+				var hot = new Handsontable(hotElement, hotSettings);
+			}
 		}
 
 		$(document).ready(function() {
