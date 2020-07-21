@@ -44,5 +44,6 @@ section.main label, section.main input, section.main select {
 }
 
 #no-data {
+	margin-top: 4%;
 	display: block;
 }

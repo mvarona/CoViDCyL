@@ -34,7 +34,12 @@
 			<option value="zamora">Gerencia de Zamora</option>
 		</select>&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="button" value="Mostrar" id="show" />
-		<div id="hot"><span id="no-data"><i>No hay datos para los parámetros indicados</i></span></div>
+		<div id="hot"></div>
+		<span id="no-data"><i>No hay datos para los parámetros indicados, o se están cargando...</i></span>
+		<div id="hiddenInfo">
+			<input type="hidden" id="hiddenSumTotalDisease" valueHiddenSumTotalDisease="Actualmente hay registrados X casos totales activos">
+			<input type="hidden" id="hiddenSumTotalDisease7Days" valueHiddenSumTotalDisease7Days="En los últimos 7 días se han registrado X casos totales activos">
+		</div>
 	</section>
 	<section class='legal'>
 		<p>Datos diarios en cada zona básica de salud. Actualización de lunes a viernes.</p>
@@ -48,6 +53,15 @@
 	</section>
 	<script type="text/javascript">
 
+		var pureObject; // Load JSON file from API URL
+		var dataObject; // Fetch only relevant fields
+
+		pureObject = [];
+		dataObject = [];
+
+		var sumTotalDisease = 0;
+		var sumTotalDisease7Days = 0;
+		
 		function isDate(dateTxt){
 			return dateTxt.match(/^(\d{1,2})(\/)(\d{1,2})(\/)(\d{4})$/); // d(d)/m(m)/yyyy
 		}
@@ -83,12 +97,7 @@
 			var officeIndex = possibleOffices.indexOf(officeTxt);
 			var codeOffice = codesOffices[officeIndex];
 
-			dateFragments = dateTxt.split("/");
-			day = dateFragments[0];
-			month = dateFragments[1];
-			year = dateFragments[2];
-
-			return "https://data.opendatasoft.com/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud@jcyl/download/?format=json&disjunctive.zbs_geo=true&refine.fecha=" + year + "&refine.fecha=" + year + "%2F" + month + "&refine.fecha=" + year + "%2F" + month + "%2F" + day + "&refine.nombregerencia=" + codeOffice + "&timezone=Europe/Berlin";
+			return "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?date=" + dateTxt + "&office=" + codeOffice;
 		}
 
 		function getUrlParameter(sParam) {
@@ -106,12 +115,291 @@
 		    }
 		}
 
-		var pureObject; // Load JSON file from API URL
-		var dataObject; // Fetch only relevant fields
+		function buildTable(){
 
-		pureObject = [];
-		dataObject = [];
+			dataObject = [];
+			
+			for (var i = 0; i < pureObject.length; i++) {
+				dataObject.push(pureObject[i]["fields"]);
+			}
 
+			for (var i = 0; i < dataObject.length; i++) {
+				sumTotalDisease += dataObject[i]["totalenfermedad"];
+				sumTotalDisease7Days += dataObject[i]["totalenfermedad_7dias"];
+			}
+
+			if (dataObject.length > 0){
+				$('#hiddenSumTotalDisease').attr("valueHiddenSumTotalDisease", $('#hiddenSumTotalDisease').attr("valueHiddenSumTotalDisease").replace("X", sumTotalDisease));
+
+				$('#hiddenSumTotalDisease7Days').attr("valueHiddenSumTotalDisease7Days", $('#hiddenSumTotalDisease7Days').attr("valueHiddenSumTotalDisease7Days").replace("X", sumTotalDisease7Days));
+
+				if (dataObject.length > 0){
+					$('#no-data').hide();
+					$('#hot').show();
+				} else {
+					$('#hot').hide();
+					$('#no-data').show();
+				}
+
+				dataObject.push({});
+				dataObject.push({});
+			}
+
+
+			var hotElement = document.querySelector('#hot');
+			var hotElementContainer = hotElement.parentNode;
+			var hotSettings = {
+			  licenseKey: 'non-commercial-and-evaluation',
+			  data: dataObject,
+			  columns: [
+			    {
+			      data: 'fecha',
+			      type: 'date',
+			      dateFormat: 'DD/MM/YYYY'
+			    },
+			    {
+			      data: 'nombregerencia',
+			      type: 'text'
+			    },
+			    {
+			      data: 'cs',
+			      type: 'text'
+			    },
+			    {
+			      data: 'centro',
+			      type: 'text'
+			    },
+			    {
+			      data: 'totalenfermedad',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'tasax100',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'totalenfermedad_7dias',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'tasax100_7dias',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'totalenfermedad_14dias',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'tasax100_14dias',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'provincia',
+			      type: 'text'
+			    },
+			    {
+			      data: 'tipo_centro',
+			      type: 'text'
+			    },
+			    {
+			      data: 'pcr_realizados',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'tasax100_pcr_realizados',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'pcr_positivos',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'tasax10000_pcr_positivos',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'pcr_positivos_sintomas',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'tasax10000_pcr_positivos_sintomas',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'pcr_positivos_sintomas_7dias',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'tasapcr_positivos_sintomasx10000_7dias',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'pcr_positivos_sintomas_14dias',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'tasapcr_positivos_sintomasx10000_14dias',
+			      type: 'numeric'
+			    },
+			    {
+			      data: 'x_geo',
+			      type: 'text'
+			    },
+			    {
+			      data: 'y_geo',
+			      type: 'text'
+			    },
+			    {
+			      data: 'zbs_geo',
+			      type: 'text'
+			    },
+			    {
+			      data: 'posicion',
+			      type: 'text'
+			    },
+			    {
+			      data: 'municipio',
+			      type: 'text'
+			    },
+			    {
+			      data: 'gerencia',
+			      type: 'text'
+			    },
+			    {
+			      data: 'tsi',
+			      type: 'numeric'
+			    },
+			    
+			    
+			  ],
+			  stretchH: 'all',
+			  width: '90%',
+			  height: 23 * dataObject.length + 100,
+			  autoWrapRow: true,
+			  filters: true,
+			  dropdownMenu: true,
+			  rowHeaders: true,
+			  colHeaders: [
+			    'FECHA',
+				'NOMBREGERENCIA',
+				'CS',
+				'CENTRO',
+				'TOTALENFERMEDAD',
+				'TASAx100',
+				'TOTALENFERMEDAD_7DIAS',
+				'TASAx100_7DIAS',
+				'TOTALENFERMEDAD_14DIAS',
+				'TASAx100_14DIAS',
+				'PROVINCIA',
+				'TIPO_CENTRO',
+				'PCR_REALIZADOS',
+				'TASAx100_PCR_REALIZADOS',
+				'PCR_POSITIVOS',
+				'TASAx10000_PCR_POSITIVOS',
+				'PCR_POSITIVOS_SINTOMAS',
+				'TASAx10000_PCR_POSITIVOS_SINTOMAS',
+				'PCR_POSITIVOS_SINTOMAS_7DIAS',
+				'TASAPCR_POSITIVOS_SINTOMASx10000_7DIAS',
+				'PCR_POSITIVOS_SINTOMAS_14DIAS',
+				'TASAPCR_POSITIVOS_SINTOMASx10000_14DIAS',
+				'x_geo',
+				'y_geo',
+				'zbs_geo',
+				'Posicion',
+				'MUNICIPIO',
+				'GERENCIA',
+				'TSI'
+			  ],
+			  columnSorting: {
+			  	indicator: true,
+			    sortEmptyCells: true,
+			    initialConfig: {
+			      column: 4,
+			      sortOrder: 'desc'
+			    }
+			  },
+			  autoColumnSize: {
+			    samplingRatio: 23
+			  },
+			  columnSummary: [
+			    {
+			      destinationColumn: 4,
+			      destinationRow: 0,
+			      type: 'sum',
+			      forceNumeric: true,
+			      suppressDataTypeErrors: true,
+			      reversedRowCoords: true,
+			      readOnly: true
+			    },
+			    {
+			      destinationColumn: 6,
+			      destinationRow: 0,
+			      type: 'sum',
+			      forceNumeric: true,
+			      suppressDataTypeErrors: true,
+			      reversedRowCoords: true,
+			      readOnly: true
+			    },
+			    {
+			      destinationColumn: 8,
+			      destinationRow: 0,
+			      type: 'sum',
+			      forceNumeric: true,
+			      suppressDataTypeErrors: true,
+			      reversedRowCoords: true,
+			      readOnly: true
+			    },
+			    {
+			      destinationColumn: 12,
+			      destinationRow: 0,
+			      type: 'sum',
+			      forceNumeric: true,
+			      suppressDataTypeErrors: true,
+			      reversedRowCoords: true,
+			      readOnly: true
+			    },
+			    {
+			      destinationColumn: 14,
+			      destinationRow: 0,
+			      type: 'sum',
+			      forceNumeric: true,
+			      suppressDataTypeErrors: true,
+			      reversedRowCoords: true,
+			      readOnly: true
+			    },
+			    {
+			      destinationColumn: 16,
+			      destinationRow: 0,
+			      type: 'sum',
+			      forceNumeric: true,
+			      suppressDataTypeErrors: true,
+			      reversedRowCoords: true,
+			      readOnly: true
+			    },
+			    {
+			      destinationColumn: 18,
+			      destinationRow: 0,
+			      type: 'sum',
+			      forceNumeric: true,
+			      suppressDataTypeErrors: true,
+			      reversedRowCoords: true,
+			      readOnly: true
+			    },
+			    {
+			      destinationColumn: 20,
+			      destinationRow: 0,
+			      type: 'sum',
+			      forceNumeric: true,
+			      suppressDataTypeErrors: true,
+			      reversedRowCoords: true,
+			      readOnly: true
+			    }
+			  ],
+			  manualRowResize: true,
+			  manualColumnResize: true
+			};
+			var hot = new Handsontable(hotElement, hotSettings);
+		}
 
 		$(document).ready(function() {
 
@@ -126,15 +414,14 @@
 			if (office != undefined && possibleOffices.includes(office)){
 				$("#office").val(office);
 				$("#office option[value=" + office + "]").attr('selected','selected');
-
 				$.ajax({
 			        type: 'GET',
 			        url: buildDataQueryURL(date, office),
-			        dataType: 'jsonp',
-			        success: function (data) {
-			            alert("HOLA");
-			            dataObject = data;
-			    		alert(dataObject.property);
+			        dataType: 'json',
+			        async: true,
+			        success: function(data) {
+			            pureObject = data;
+			            buildTable();
 			        }
 			    });
 			}
@@ -161,261 +448,6 @@
 
 		});
 
-		for (var i = 0; i < pureObject.length; i++) {
-			dataObject.push(pureObject[i]["fields"]);
-		}
-
-		dataObject.push({});
-		dataObject.push({});
-
-		var hotElement = document.querySelector('#hot');
-		var hotElementContainer = hotElement.parentNode;
-		var hotSettings = {
-		  licenseKey: 'non-commercial-and-evaluation',
-		  data: dataObject,
-		  columns: [
-		    {
-		      data: 'fecha',
-		      type: 'date',
-		      dateFormat: 'DD/MM/YYYY'
-		    },
-		    {
-		      data: 'nombregerencia',
-		      type: 'text'
-		    },
-		    {
-		      data: 'cs',
-		      type: 'text'
-		    },
-		    {
-		      data: 'centro',
-		      type: 'text'
-		    },
-		    {
-		      data: 'totalenfermedad',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'tasax100',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'totalenfermedad_7dias',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'tasax100_7dias',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'totalenfermedad_14dias',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'tasax100_14dias',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'provincia',
-		      type: 'text'
-		    },
-		    {
-		      data: 'tipo_centro',
-		      type: 'text'
-		    },
-		    {
-		      data: 'pcr_realizados',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'tasax100_pcr_realizados',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'pcr_positivos',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'tasax10000_pcr_positivos',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'pcr_positivos_sintomas',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'tasax10000_pcr_positivos_sintomas',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'pcr_positivos_sintomas_7dias',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'tasapcr_positivos_sintomasx10000_7dias',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'pcr_positivos_sintomas_14dias',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'tasapcr_positivos_sintomasx10000_14dias',
-		      type: 'numeric'
-		    },
-		    {
-		      data: 'x_geo',
-		      type: 'text'
-		    },
-		    {
-		      data: 'y_geo',
-		      type: 'text'
-		    },
-		    {
-		      data: 'zbs_geo',
-		      type: 'text'
-		    },
-		    {
-		      data: 'posicion',
-		      type: 'text'
-		    },
-		    {
-		      data: 'municipio',
-		      type: 'text'
-		    },
-		    {
-		      data: 'gerencia',
-		      type: 'text'
-		    },
-		    {
-		      data: 'tsi',
-		      type: 'numeric'
-		    },
-		    
-		    
-		  ],
-		  stretchH: 'all',
-		  width: '90%',
-		  height: 300,
-		  autoWrapRow: true,
-		  filters: true,
-		  dropdownMenu: true,
-		  rowHeaders: true,
-		  colHeaders: [
-		    'FECHA',
-			'NOMBREGERENCIA',
-			'CS',
-			'CENTRO',
-			'TOTALENFERMEDAD',
-			'TASAx100',
-			'TOTALENFERMEDAD_7DIAS',
-			'TASAx100_7DIAS',
-			'TOTALENFERMEDAD_14DIAS',
-			'TASAx100_14DIAS',
-			'PROVINCIA',
-			'TIPO_CENTRO',
-			'PCR_REALIZADOS',
-			'TASAx100_PCR_REALIZADOS',
-			'PCR_POSITIVOS',
-			'TASAx10000_PCR_POSITIVOS',
-			'PCR_POSITIVOS_SINTOMAS',
-			'TASAx10000_PCR_POSITIVOS_SINTOMAS',
-			'PCR_POSITIVOS_SINTOMAS_7DIAS',
-			'TASAPCR_POSITIVOS_SINTOMASx10000_7DIAS',
-			'PCR_POSITIVOS_SINTOMAS_14DIAS',
-			'TASAPCR_POSITIVOS_SINTOMASx10000_14DIAS',
-			'x_geo',
-			'y_geo',
-			'zbs_geo',
-			'Posicion',
-			'MUNICIPIO',
-			'GERENCIA',
-			'TSI'
-		  ],
-		  columnSorting: {
-		    indicator: true
-		  },
-		  autoColumnSize: {
-		    samplingRatio: 23
-		  },
-		  columnSummary: [
-		    {
-		      destinationColumn: 4,
-		      destinationRow: 0,
-		      type: 'sum',
-		      forceNumeric: true,
-		      suppressDataTypeErrors: true,
-		      reversedRowCoords: true,
-		      readOnly: true
-		    },
-		    {
-		      destinationColumn: 6,
-		      destinationRow: 0,
-		      type: 'sum',
-		      forceNumeric: true,
-		      suppressDataTypeErrors: true,
-		      reversedRowCoords: true,
-		      readOnly: true
-		    },
-		    {
-		      destinationColumn: 8,
-		      destinationRow: 0,
-		      type: 'sum',
-		      forceNumeric: true,
-		      suppressDataTypeErrors: true,
-		      reversedRowCoords: true,
-		      readOnly: true
-		    },
-		    {
-		      destinationColumn: 12,
-		      destinationRow: 0,
-		      type: 'sum',
-		      forceNumeric: true,
-		      suppressDataTypeErrors: true,
-		      reversedRowCoords: true,
-		      readOnly: true
-		    },
-		    {
-		      destinationColumn: 14,
-		      destinationRow: 0,
-		      type: 'sum',
-		      forceNumeric: true,
-		      suppressDataTypeErrors: true,
-		      reversedRowCoords: true,
-		      readOnly: true
-		    },
-		    {
-		      destinationColumn: 16,
-		      destinationRow: 0,
-		      type: 'sum',
-		      forceNumeric: true,
-		      suppressDataTypeErrors: true,
-		      reversedRowCoords: true,
-		      readOnly: true
-		    },
-		    {
-		      destinationColumn: 18,
-		      destinationRow: 0,
-		      type: 'sum',
-		      forceNumeric: true,
-		      suppressDataTypeErrors: true,
-		      reversedRowCoords: true,
-		      readOnly: true
-		    },
-		    {
-		      destinationColumn: 20,
-		      destinationRow: 0,
-		      type: 'sum',
-		      forceNumeric: true,
-		      suppressDataTypeErrors: true,
-		      reversedRowCoords: true,
-		      readOnly: true
-		    }
-		  ],
-		  manualRowResize: true,
-		  manualColumnResize: true
-		};
-		var hot = new Handsontable(hotElement, hotSettings);
 	</script>
 </body>
 </html>
