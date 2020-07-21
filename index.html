@@ -61,10 +61,6 @@
 
 		var sumTotalDisease = 0;
 		var sumTotalDisease7Days = 0;
-		
-		function isDate(dateTxt){
-			return dateTxt.match(/^(\d{1,2})(\/)(\d{1,2})(\/)(\d{4})$/); // d(d)/m(m)/yyyy
-		}
 
 		function addLeadingZeroesToDate(dateTxt){
 
@@ -86,10 +82,6 @@
 			return newDateTxt;
 		}
 
-		function buildForwardingURL(dateTxt, officeTxt){
-			return "?fecha=" + dateTxt + "&gerencia=" + officeTxt;
-		}
-
 		function buildDataQueryURL(dateTxt, officeTxt){
 			var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
 			var codesOffices = ["Gerencia+de+Ávila", "Gerencia+de+Burgos", "Gerencia+de+León", "Gerencia+de+Palencia", "Gerencia+de+Ponferrada", "Gerencia+de+Salamanca", "Gerencia+de+Segovia", "Gerencia+de+Soria", "Gerencia+de+Valladolid+Este", "Gerencia+de+Valladolid+Oeste", "Gerencia+de+Zamora"];
@@ -97,7 +89,25 @@
 			var officeIndex = possibleOffices.indexOf(officeTxt);
 			var codeOffice = codesOffices[officeIndex];
 
-			return "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?date=" + dateTxt + "&office=" + codeOffice;
+			if (dateTxt.length == 0){
+				return "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?office=" + codeOffice;
+			} else {
+				return "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?date=" + dateTxt + "&office=" + codeOffice;
+			}
+
+		}
+
+		function buildForwardingURL(dateTxt, officeTxt){
+			if (dateTxt == undefined){
+				return "?gerencia=" + officeTxt;
+			} else {
+				return "?fecha=" + dateTxt + "&gerencia=" + officeTxt;
+			}
+			
+		}
+
+		function isDate(dateTxt){
+			return dateTxt.match(/^(\d{1,2})(\/)(\d{1,2})(\/)(\d{4})$/); // d(d)/m(m)/yyyy
 		}
 
 		function getUrlParameter(sParam) {
@@ -431,9 +441,10 @@
 				var dateTxt = $('#date').val();
 				var officeTxt = $("#office").children("option:selected").val();
 				
-				if (dateTxt.length < 8){
+				if (dateTxt.length > 0 && dateTxt.length < 8){
 					alert("El formato de la fecha es incorrecto. Debe ser día/mes/año.");
-				} else {
+				
+				} else if (dateTxt.length >= 8) {
 					if (isDate(dateTxt)){
 						if (dateTxt.length < 10){
 							dateTxt = addLeadingZeroesToDate(dateTxt);
@@ -442,6 +453,9 @@
 					} else {
 						alert("El formato de la fecha es incorrecto. Debe ser día/mes/año.");
 					}
+
+				} else if (dateTxt.length == 0){
+					window.location.href = buildForwardingURL(dateTxt, officeTxt);
 				}
 
 			});
