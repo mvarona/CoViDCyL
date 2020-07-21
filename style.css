@@ -20,6 +20,12 @@ h1 {
 	margin-top: 1%;
 }
 
+span.small {
+	font-size: .9em;
+	display: inline-block;
+	margin-top: 1%;
+}
+
 #hot {
 	width: 90%;
 	height: 100%;
