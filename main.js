@@ -104,7 +104,6 @@ function buildTable(){
 	var columnsData;
 
 	if (getUrlParameter("hideTitle") != undefined && getUrlParameter("hideTitle") == "true"){
-		alert("HOLA");
 		colHeads = [
 	    'FECHA',
 		'CENTRO',
