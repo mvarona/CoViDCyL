@@ -363,6 +363,7 @@ $(document).ready(function() {
 
 	var date = getUrlParameter("fecha");
 	var office = getUrlParameter("gerencia");
+	var hideTittle = getUrlParameter("hideTittle");
 	var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
 	
 	if (date != undefined && isDate(date)){
@@ -382,6 +383,11 @@ $(document).ready(function() {
 	            buildTable();
 	        }
 	    });
+	}
+
+	if (hideTittle == "true"){
+		$('header').hide();
+		$('#form').hide();
 	}
 
 	$('#show').click(function(){

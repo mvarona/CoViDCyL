@@ -18,31 +18,35 @@
 	<meta name="theme-color" content="#ffffff">
 </head>
 <body>
-	<h1>Tasa de enfermos por zonas básicas de salud -<br/>Datos CoViD-19 CyL</h1>
-	<h2>Actualización de lunes a viernes</h2>
-	<h2>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h2>
-	<hr/>
-	<br/>
-	<section class='main'>
-		<label>Fecha: </label>&nbsp;
-		<input type="text" placeholder="dd/mm/yyyy" id="date">&nbsp;&nbsp;&nbsp;&nbsp;
-		<label>Gerencia: </label>&nbsp;
-		<select id="office">
-			<option value="avila">Gerencia de Ávila</option>
-			<option value="burgos">Gerencia de Burgos</option>
-			<option value="leon">Gerencia de León</option>
-			<option value="palencia">Gerencia de Palencia</option>
-			<option value="ponferrada">Gerencia de Ponferrada</option>
-			<option value="salamanca">Gerencia de Salamanca</option>
-			<option value="segovia">Gerencia de Segovia</option>
-			<option value="soria">Gerencia de Soria</option>
-			<option value="valladolidEste">Gerencia de Valladolid Este</option>
-			<option value="valladolidOeste">Gerencia de Valladolid Oeste</option>
-			<option value="zamora">Gerencia de Zamora</option>
-		</select>&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="button" value="Mostrar" id="show" />
+	<header>
+		<h1>Tasa de enfermos por zonas básicas de salud -<br/>Datos CoViD-19 CyL</h1>
+		<h2>Actualización de lunes a viernes</h2>
+		<h2>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h2>
+		<hr/>
 		<br/>
-		<span class="small">Dejar en blanco la fecha para cargar datos del último día disponible</span>
+	</header>
+	<section class='main'>
+		<div id="form">
+			<label>Fecha: </label>&nbsp;
+			<input type="text" placeholder="dd/mm/yyyy" id="date">&nbsp;&nbsp;&nbsp;&nbsp;
+			<label>Gerencia: </label>&nbsp;
+			<select id="office">
+				<option value="avila">Gerencia de Ávila</option>
+				<option value="burgos">Gerencia de Burgos</option>
+				<option value="leon">Gerencia de León</option>
+				<option value="palencia">Gerencia de Palencia</option>
+				<option value="ponferrada">Gerencia de Ponferrada</option>
+				<option value="salamanca">Gerencia de Salamanca</option>
+				<option value="segovia">Gerencia de Segovia</option>
+				<option value="soria">Gerencia de Soria</option>
+				<option value="valladolidEste">Gerencia de Valladolid Este</option>
+				<option value="valladolidOeste">Gerencia de Valladolid Oeste</option>
+				<option value="zamora">Gerencia de Zamora</option>
+			</select>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" value="Mostrar" id="show" />
+			<br/>
+			<span class="small">Dejar en blanco la fecha para cargar datos del último día disponible</span>
+		</div>
 		<div id="hot"></div>
 		<span id="no-data"><i>No hay datos para los parámetros indicados, o se están cargando...</i></span>
 		<div id="hiddenInfo">
