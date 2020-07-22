@@ -1,8 +1,8 @@
 <?php
-	header('Content-Type: application/json');
-	header("Access-Control-Allow-Origin: *");
-
 	if (isset($_GET['date']) && isset($_GET['office'])){
+
+		header('Content-Type: application/json');
+		header("Access-Control-Allow-Origin: *");
 
 		$dateFragments = explode("/", $_GET['date']);
 		$day = $dateFragments[0];
@@ -16,6 +16,9 @@
 		echo $json;
 
 	} else if (!isset($_GET['date']) && isset($_GET['office'])){
+
+		header('Content-Type: application/json');
+		header("Access-Control-Allow-Origin: *");
 
 		$date = date('m/d/Y');
 
@@ -37,6 +40,54 @@
 		
 		echo $json;
 
+	} else if (!isset($_GET['date']) && isset($_GET['gerencia']) && isset($_GET['shortcut'])){
+
+		header('Content-Type: text/html; charset=utf-8');
+		header("Access-Control-Allow-Origin: *");
+
+		if ($_GET['shortcut'] == "true"){
+
+			do {
+
+				$date = date('m/d/Y', strtotime("$date -1 days"));
+
+				$day = date('d', strtotime($date));
+				$month = date('m', strtotime($date));
+				$year = date('Y', strtotime($date));
+				$officeTxt = $_GET['gerencia'];
+
+				$possibleOffices = array("avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora");
+				$codesOffices = array("Gerencia+de+Ávila", "Gerencia+de+Burgos", "Gerencia+de+León", "Gerencia+de+Palencia", "Gerencia+de+Ponferrada", "Gerencia+de+Salamanca", "Gerencia+de+Segovia", "Gerencia+de+Soria", "Gerencia+de+Valladolid+Este", "Gerencia+de+Valladolid+Oeste", "Gerencia+de+Zamora");
+
+				$officeIndex = 0;
+				foreach ($possibleOffices as $possibleOffice) {
+					if ($possibleOffice == $officeTxt){
+						break;
+					}
+					$officeIndex++;
+				}
+
+				$codeOffice = $codesOffices[$officeIndex];
+
+				$url = "https://data.opendatasoft.com/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud@jcyl/download/?format=json&disjunctive.zbs_geo=true&refine.fecha=" . $year . "&refine.fecha=" . $year . "%2F" . $month . "&refine.fecha=" . $year . "%2F" . $month . "%2F" . $day . "&refine.nombregerencia=" . $codeOffice . "&timezone=Europe/Berlin";
+
+				$json = file_get_contents($url);
+				$jsonArray = json_decode($json);
+
+			} while (count($jsonArray) == 0);
+
+			$valueHiddenSumTotalDisease = 0;
+			$valueHiddenSumTotalDisease7Days = 0;
+			for ($i=0; $i < count($jsonArray); $i++) { 
+				$valueHiddenSumTotalDisease += $jsonArray[$i]->fields->totalenfermedad;
+				$valueHiddenSumTotalDisease7Days += $jsonArray[$i]->fields->totalenfermedad_7dias;
+			}
+
+			
+			echo "Actualmente hay registrados " . $valueHiddenSumTotalDisease . " casos totales activos.<br/>";
+			echo "En los últimos 7 días se han registrado " . $valueHiddenSumTotalDisease7Days . " casos totales activos.";
+
+		}
 	}
 
 ?>

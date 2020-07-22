@@ -1,0 +1,1 @@
+WebView.loadURL("https://mvarona.github.io/CoViDCyL?gerencia=salamanca&hideTitle=true", new Size(0,500), true);

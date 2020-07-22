@@ -102,11 +102,95 @@ function buildTable(){
 
 	var colHeads;
 	var columnsData;
+	var colsSum;
+	var colsSort;
 
 	if (getUrlParameter("hideTitle") != undefined && getUrlParameter("hideTitle") == "true"){
+		$('#date_hideTitle').html("Fecha: " + dataObject[0]["fecha"].split("-")[2] + "/" + dataObject[0]["fecha"].split("-")[1] + "/" + dataObject[0]["fecha"].split("-")[0]);
+		colsSort = {
+		  	indicator: true,
+		    sortEmptyCells: true,
+		    initialConfig: {
+		      column: 1,
+		      sortOrder: 'desc'
+		    }
+		};
+		colsSum = [
+	    {
+	      destinationColumn: 1,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 3,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 5,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 9,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 11,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 13,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 15,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 17,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    }
+	  ];
 		colHeads = [
-	    'FECHA',
-		'CENTRO',
+	    'CENTRO',
 		'TOTALENFERMEDAD',
 		'TASAx100',
 		'TOTALENFERMEDAD_7DIAS',
@@ -134,11 +218,6 @@ function buildTable(){
 		'TSI'
 	  ];
 	  columnsData = [
-	    {
-	      data: 'fecha',
-	      type: 'date',
-	      dateFormat: 'DD/MM/YYYY'
-	    },
 	    {
 	      data: 'centro',
 	      type: 'text'
@@ -248,6 +327,88 @@ function buildTable(){
 	  ];
 
 	} else {
+		colsSort = {
+		  	indicator: true,
+		    sortEmptyCells: true,
+		    initialConfig: {
+		      column: 4,
+		      sortOrder: 'desc'
+		    }
+	  	};
+		colsSum = [
+	    {
+	      destinationColumn: 4,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 6,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 8,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 12,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 14,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 16,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 18,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    },
+	    {
+	      destinationColumn: 20,
+	      destinationRow: 0,
+	      type: 'sum',
+	      forceNumeric: true,
+	      suppressDataTypeErrors: true,
+	      reversedRowCoords: true,
+	      readOnly: true
+	    }
+	  ];
 		colHeads = [
 	    'FECHA',
 		'NOMBREGERENCIA',
@@ -417,91 +578,11 @@ function buildTable(){
 	  dropdownMenu: true,
 	  rowHeaders: true,
 	  colHeaders: colHeads,
-	  columnSorting: {
-	  	indicator: true,
-	    sortEmptyCells: true,
-	    initialConfig: {
-	      column: 4,
-	      sortOrder: 'desc'
-	    }
-	  },
+	  columnSorting: colsSort,
 	  autoColumnSize: {
 	    samplingRatio: 23
 	  },
-	  columnSummary: [
-	    {
-	      destinationColumn: 4,
-	      destinationRow: 0,
-	      type: 'sum',
-	      forceNumeric: true,
-	      suppressDataTypeErrors: true,
-	      reversedRowCoords: true,
-	      readOnly: true
-	    },
-	    {
-	      destinationColumn: 6,
-	      destinationRow: 0,
-	      type: 'sum',
-	      forceNumeric: true,
-	      suppressDataTypeErrors: true,
-	      reversedRowCoords: true,
-	      readOnly: true
-	    },
-	    {
-	      destinationColumn: 8,
-	      destinationRow: 0,
-	      type: 'sum',
-	      forceNumeric: true,
-	      suppressDataTypeErrors: true,
-	      reversedRowCoords: true,
-	      readOnly: true
-	    },
-	    {
-	      destinationColumn: 12,
-	      destinationRow: 0,
-	      type: 'sum',
-	      forceNumeric: true,
-	      suppressDataTypeErrors: true,
-	      reversedRowCoords: true,
-	      readOnly: true
-	    },
-	    {
-	      destinationColumn: 14,
-	      destinationRow: 0,
-	      type: 'sum',
-	      forceNumeric: true,
-	      suppressDataTypeErrors: true,
-	      reversedRowCoords: true,
-	      readOnly: true
-	    },
-	    {
-	      destinationColumn: 16,
-	      destinationRow: 0,
-	      type: 'sum',
-	      forceNumeric: true,
-	      suppressDataTypeErrors: true,
-	      reversedRowCoords: true,
-	      readOnly: true
-	    },
-	    {
-	      destinationColumn: 18,
-	      destinationRow: 0,
-	      type: 'sum',
-	      forceNumeric: true,
-	      suppressDataTypeErrors: true,
-	      reversedRowCoords: true,
-	      readOnly: true
-	    },
-	    {
-	      destinationColumn: 20,
-	      destinationRow: 0,
-	      type: 'sum',
-	      forceNumeric: true,
-	      suppressDataTypeErrors: true,
-	      reversedRowCoords: true,
-	      readOnly: true
-	    }
-	  ],
+	  columnSummary: colsSum,
 	  manualRowResize: true,
 	  manualColumnResize: true
 	};
