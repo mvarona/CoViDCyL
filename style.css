@@ -55,3 +55,7 @@ section.main label, section.main input, section.main select {
 	margin-top: 4%;
 	display: block;
 }
+
+.hideTitle {
+	font-size: .7em!important;
+}

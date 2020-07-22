@@ -4,10 +4,12 @@
 Visualizador de todos los datos para el set 'Tasa de enfermos por zonas básicas de salud' - Datos CoViD-19 de Castilla y León
 
 
+
 # Propósito:
 Complementar la tabla online predeterminada del set de datos abiertos de Castilla y León sobre la incidencia diaria del SARS-CoV-2, mostrando todas las columnas para una gerencia de salud de la comunidad y una fecha en particular, además de un sumatorio para las cantidades absolutas de incidencia del virus. Se puede acceder desde <a href="https://mvarona.github.io/CoViDCyL" target="_blank">https://mvarona.github.io/CoViDCyL/</a>, y basta con especificar la gerencia de salud deseada para cargar los últimos datos disponibles. También se puede especificar una fecha en particular.
 
 Los datos usados son accesibles desde el portal de <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">datos abiertos de CyL</a>.
+
 
 
 # Atajo de Siri
