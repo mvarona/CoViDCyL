@@ -15,13 +15,12 @@ Los datos usados son accesibles desde el portal de <a href="https://analisis.dat
 # Atajo de Siri
 Es posible preguntarle a Siri* algo como _"¿Cuántos casos de CoViD hay aquí?"_ (o la frase deseada en su lugar), y que responda con el total de casos activos estimados actualmente y en los últimos 7 días (sumatorios de los valores de las columnas _totalenfermedad_ y _totalenfermedad_7dias_, respectivamente):
 
-<img src="screenshot.png" alt="Captura de pantalla ejecutando el atajo" width="500"/>
+<img src="screenshot.png" alt="Captura de pantalla ejecutando el atajo" width="300"/>
 
 
 Para ello, sólo hace falta tener instalada la app para iOS <a href="https://apps.apple.com/es/app/atajos/id915249334" target="_blank">Atajos</a>, <a href="https://support.apple.com/es-es/HT210628" target="_blank">Habilitar los atajos compartidos</a> y descargar el atajo pulsando en el siguiente enlace desde el dispositivo iOS:
 
-![Shortcuts](https://bmsalamanca.com/others/tempWu/shortcuts-app-icon.jpg)
-<a href="TODO: URL del atajo">ATAJO</a>
+<a href="https://www.icloud.com/shortcuts/e3a6b698a263456f85bb92113eff732c">![Shortcuts](https://bmsalamanca.com/others/tempWu/shortcuts-app-icon.jpg) Descargar atajo</a>
 
 Una vez instalado, será necesario que cambies el nombre de la gerencia de la que deseas obtener los últimos datos. Recuerda que el valor que elijas sólo puede ser uno de los siguientes, respetando mayúsculas y minúsculas:
 
