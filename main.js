@@ -100,13 +100,187 @@ function buildTable(){
 		dataObject.push({});
 	}
 
+	var colHeads;
+	var columnsData;
 
-	var hotElement = document.querySelector('#hot');
-	var hotElementContainer = hotElement.parentNode;
-	var hotSettings = {
-	  licenseKey: 'non-commercial-and-evaluation',
-	  data: dataObject,
-	  columns: [
+	if (getUrlParameter("hideTitle") != undefined && getUrlParameter("hideTitle") == "true"){
+		alert("HOLA");
+		colHeads = [
+	    'FECHA',
+		'CENTRO',
+		'TOTALENFERMEDAD',
+		'TASAx100',
+		'TOTALENFERMEDAD_7DIAS',
+		'TASAx100_7DIAS',
+		'TOTALENFERMEDAD_14DIAS',
+		'TASAx100_14DIAS',
+		'PROVINCIA',
+		'TIPO_CENTRO',
+		'PCR_REALIZADOS',
+		'TASAx100_PCR_REALIZADOS',
+		'PCR_POSITIVOS',
+		'TASAx10000_PCR_POSITIVOS',
+		'PCR_POSITIVOS_SINTOMAS',
+		'TASAx10000_PCR_POSITIVOS_SINTOMAS',
+		'PCR_POSITIVOS_SINTOMAS_7DIAS',
+		'TASAPCR_POSITIVOS_SINTOMASx10000_7DIAS',
+		'PCR_POSITIVOS_SINTOMAS_14DIAS',
+		'TASAPCR_POSITIVOS_SINTOMASx10000_14DIAS',
+		'x_geo',
+		'y_geo',
+		'zbs_geo',
+		'Posicion',
+		'MUNICIPIO',
+		'GERENCIA',
+		'TSI'
+	  ];
+	  columnsData = [
+	    {
+	      data: 'fecha',
+	      type: 'date',
+	      dateFormat: 'DD/MM/YYYY'
+	    },
+	    {
+	      data: 'centro',
+	      type: 'text'
+	    },
+	    {
+	      data: 'totalenfermedad',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'tasax100',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'totalenfermedad_7dias',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'tasax100_7dias',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'totalenfermedad_14dias',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'tasax100_14dias',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'provincia',
+	      type: 'text'
+	    },
+	    {
+	      data: 'tipo_centro',
+	      type: 'text'
+	    },
+	    {
+	      data: 'pcr_realizados',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'tasax100_pcr_realizados',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'pcr_positivos',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'tasax10000_pcr_positivos',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'pcr_positivos_sintomas',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'tasax10000_pcr_positivos_sintomas',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'pcr_positivos_sintomas_7dias',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'tasapcr_positivos_sintomasx10000_7dias',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'pcr_positivos_sintomas_14dias',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'tasapcr_positivos_sintomasx10000_14dias',
+	      type: 'numeric'
+	    },
+	    {
+	      data: 'x_geo',
+	      type: 'text'
+	    },
+	    {
+	      data: 'y_geo',
+	      type: 'text'
+	    },
+	    {
+	      data: 'zbs_geo',
+	      type: 'text'
+	    },
+	    {
+	      data: 'posicion',
+	      type: 'text'
+	    },
+	    {
+	      data: 'municipio',
+	      type: 'text'
+	    },
+	    {
+	      data: 'gerencia',
+	      type: 'text'
+	    },
+	    {
+	      data: 'tsi',
+	      type: 'numeric'
+	    },
+	    
+	    
+	  ];
+
+	} else {
+		colHeads = [
+	    'FECHA',
+		'NOMBREGERENCIA',
+		'CS',
+		'CENTRO',
+		'TOTALENFERMEDAD',
+		'TASAx100',
+		'TOTALENFERMEDAD_7DIAS',
+		'TASAx100_7DIAS',
+		'TOTALENFERMEDAD_14DIAS',
+		'TASAx100_14DIAS',
+		'PROVINCIA',
+		'TIPO_CENTRO',
+		'PCR_REALIZADOS',
+		'TASAx100_PCR_REALIZADOS',
+		'PCR_POSITIVOS',
+		'TASAx10000_PCR_POSITIVOS',
+		'PCR_POSITIVOS_SINTOMAS',
+		'TASAx10000_PCR_POSITIVOS_SINTOMAS',
+		'PCR_POSITIVOS_SINTOMAS_7DIAS',
+		'TASAPCR_POSITIVOS_SINTOMASx10000_7DIAS',
+		'PCR_POSITIVOS_SINTOMAS_14DIAS',
+		'TASAPCR_POSITIVOS_SINTOMASx10000_14DIAS',
+		'x_geo',
+		'y_geo',
+		'zbs_geo',
+		'Posicion',
+		'MUNICIPIO',
+		'GERENCIA',
+		'TSI'
+	  ];
+	  columnsData = [
 	    {
 	      data: 'fecha',
 	      type: 'date',
@@ -226,7 +400,16 @@ function buildTable(){
 	    },
 	    
 	    
-	  ],
+	  ];
+	}
+
+
+	var hotElement = document.querySelector('#hot');
+	var hotElementContainer = hotElement.parentNode;
+	var hotSettings = {
+	  licenseKey: 'non-commercial-and-evaluation',
+	  data: dataObject,
+	  columns: columnsData,
 	  stretchH: 'all',
 	  width: '90%',
 	  height: 23 * dataObject.length + 100,
@@ -234,37 +417,7 @@ function buildTable(){
 	  filters: true,
 	  dropdownMenu: true,
 	  rowHeaders: true,
-	  colHeaders: [
-	    'FECHA',
-		'NOMBREGERENCIA',
-		'CS',
-		'CENTRO',
-		'TOTALENFERMEDAD',
-		'TASAx100',
-		'TOTALENFERMEDAD_7DIAS',
-		'TASAx100_7DIAS',
-		'TOTALENFERMEDAD_14DIAS',
-		'TASAx100_14DIAS',
-		'PROVINCIA',
-		'TIPO_CENTRO',
-		'PCR_REALIZADOS',
-		'TASAx100_PCR_REALIZADOS',
-		'PCR_POSITIVOS',
-		'TASAx10000_PCR_POSITIVOS',
-		'PCR_POSITIVOS_SINTOMAS',
-		'TASAx10000_PCR_POSITIVOS_SINTOMAS',
-		'PCR_POSITIVOS_SINTOMAS_7DIAS',
-		'TASAPCR_POSITIVOS_SINTOMASx10000_7DIAS',
-		'PCR_POSITIVOS_SINTOMAS_14DIAS',
-		'TASAPCR_POSITIVOS_SINTOMASx10000_14DIAS',
-		'x_geo',
-		'y_geo',
-		'zbs_geo',
-		'Posicion',
-		'MUNICIPIO',
-		'GERENCIA',
-		'TSI'
-	  ],
+	  colHeaders: colHeads,
 	  columnSorting: {
 	  	indicator: true,
 	    sortEmptyCells: true,
@@ -385,7 +538,7 @@ $(document).ready(function() {
 	    });
 	}
 
-	if (hideTitle == "true"){
+	if (hideTitle != undefined && hideTitle == "true"){
 		$('header').hide();
 		$('#form').hide();
 	}
