@@ -84,8 +84,8 @@
 			}
 
 			
-			echo "Actualmente hay registrados " . $valueHiddenSumTotalDisease . " casos totales activos.<br/>";
-			echo "En los últimos 7 días se han registrado " . $valueHiddenSumTotalDisease7Days . " casos totales activos.";
+			echo "Actualmente hay registrados " . $valueHiddenSumTotalDisease . " casos totales compatibles activos.<br/>";
+			echo "En los últimos 7 días se han registrado " . $valueHiddenSumTotalDisease7Days . " casos totales compatibles activos.";
 
 		}
 	}
