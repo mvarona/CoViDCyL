@@ -574,13 +574,14 @@ function buildTable(){
 	  columns: columnsData,
 	  stretchH: 'all',
 	  width: '90%',
-	  height: 23 * dataObject.length + 100,
+	  height: 10 * dataObject.length,
 	  autoWrapRow: true,
 	  filters: true,
 	  dropdownMenu: true,
 	  rowHeaders: true,
 	  colHeaders: colHeads,
 	  columnSorting: colsSort,
+	  fixedRowsTop: 0,
 	  autoColumnSize: {
 	    samplingRatio: 23
 	  },
