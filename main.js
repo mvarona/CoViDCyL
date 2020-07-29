@@ -104,8 +104,12 @@ function buildTable(){
 	var columnsData;
 	var colsSum;
 	var colsSort;
+	var fixedCols;
 
 	if (getUrlParameter("hideTitle") != undefined && getUrlParameter("hideTitle") == "true"){
+
+		// SHORTCUT:
+
 		$('#date_hideTitle').html("Fecha: " + dataObject[0]["fecha"].split("-")[2] + "/" + dataObject[0]["fecha"].split("-")[1] + "/" + dataObject[0]["fecha"].split("-")[0]);
 		$('#hot').addClass("hideTitle");
 		
@@ -216,8 +220,9 @@ function buildTable(){
 		'zbs_geo',
 		'Posicion',
 		'MUNICIPIO',
-		'GERENCIA',
-		'TSI'
+		'NOMBREGERENCIA',
+		'TSI',
+		'CS'
 	  ];
 	  columnsData = [
 	    {
@@ -317,18 +322,25 @@ function buildTable(){
 	      type: 'text'
 	    },
 	    {
-	      data: 'gerencia',
+	      data: 'nombregerencia',
 	      type: 'text'
 	    },
 	    {
 	      data: 'tsi',
 	      type: 'numeric'
 	    },
-	    
-	    
+	    {
+	      data: 'cs',
+	      type: 'text'
+	    }
 	  ];
 
+	  fixedCols = 1;
+
 	} else {
+
+		// NOT SHORTCUT:
+
 		colsSort = {
 		  	indicator: true,
 		    sortEmptyCells: true,
@@ -413,9 +425,9 @@ function buildTable(){
 	  ];
 		colHeads = [
 	    'FECHA',
+		'CENTRO',
 		'NOMBREGERENCIA',
 		'CS',
-		'CENTRO',
 		'TOTALENFERMEDAD',
 		'TASAx100',
 		'TOTALENFERMEDAD_7DIAS',
@@ -449,15 +461,15 @@ function buildTable(){
 	      dateFormat: 'DD/MM/YYYY'
 	    },
 	    {
+	      data: 'centro',
+	      type: 'text'
+	    },
+	    {
 	      data: 'nombregerencia',
 	      type: 'text'
 	    },
 	    {
 	      data: 'cs',
-	      type: 'text'
-	    },
-	    {
-	      data: 'centro',
 	      type: 'text'
 	    },
 	    {
@@ -560,9 +572,9 @@ function buildTable(){
 	      data: 'tsi',
 	      type: 'numeric'
 	    },
-	    
-	    
 	  ];
+
+	  fixedCols = 2;
 	}
 
 
@@ -582,6 +594,7 @@ function buildTable(){
 	  colHeaders: colHeads,
 	  columnSorting: colsSort,
 	  fixedRowsTop: 0,
+	  fixedColumnsLeft: fixedCols,
 	  autoColumnSize: {
 	    samplingRatio: 23
 	  },
