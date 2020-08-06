@@ -13,7 +13,7 @@ Los datos usados son accesibles desde el portal de <a href="https://analisis.dat
 
 
 # Atajo de Siri
-Es posible preguntarle a Siri* algo como _"¿Cuántos casos de CoViD hay aquí?"_ (o la frase deseada en su lugar), y que responda con el total de casos activos estimados actualmente y en los últimos 7 días (sumatorios de los valores de las columnas _totalenfermedad_ y _totalenfermedad_7dias_, respectivamente):
+Es posible preguntarle a Siri* algo como _"¿Cuántos casos de CoViD hay aquí?"_ (o la frase deseada en su lugar), y que responda con el total de casos activos con síntomas compatibles estimados actualmente y en los últimos 7 días (sumatorios de los valores de las columnas _totalenfermedad_ y _totalenfermedad_7dias_, respectivamente):
 
 <img src="screenshot.png" alt="Captura de pantalla ejecutando el atajo" width="400"/>
 
