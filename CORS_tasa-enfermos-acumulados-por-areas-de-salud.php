@@ -15,7 +15,7 @@
 		$json = file_get_contents($url);
 		echo $json;
 
-	} else if (!isset($_GET['date']) && isset($_GET['office'])){
+	} else if (!isset($_GET['date']) && isset($_GET['office']) && !isset($_GET['graph'])){
 
 		header('Content-Type: application/json');
 		header("Access-Control-Allow-Origin: *");
@@ -39,6 +39,22 @@
 		} while (count($jsonArray) == 0);
 		
 		echo $json;
+
+	} else if (!isset($_GET['date']) && isset($_GET['office']) && isset($_GET['graph'])){
+		if ($_GET['graph'] == "true"){
+
+			header('Content-Type: application/json');
+			header("Access-Control-Allow-Origin: *");
+
+			$office = $_GET['office'];
+
+			$url = "https://data.opendatasoft.com/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud@jcyl/download/?format=json&disjunctive.zbs_geo=true&refine.nombregerencia=" . $office . "&timezone=Europe/Berlin";
+
+			$json = file_get_contents($url);
+			$jsonArray = json_decode($json);
+
+			echo $json;
+		}
 
 	} else if (!isset($_GET['date']) && isset($_GET['gerencia']) && isset($_GET['shortcut'])){
 

@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src='https://code.highcharts.com/highcharts.js'></script>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<meta http-equiv="Content-Language" content="es"/>
@@ -55,8 +56,33 @@
 			<input type="hidden" id="hiddenSumTotalDisease7Days" valueHiddenSumTotalDisease7Days="En los últimos 7 días se han registrado X casos totales activos">
 		</div>
 	</section>
+	<section id="graph">
+		<hr/>
+		<br/>
+		<label>Gráfico: </label>&nbsp;
+		<select id="graph-param">
+			<option value="totalenfermedad">TOTAL ENFERMEDAD</option>
+			<option value="pcrpositivos">PCR POSITIVOS</option>
+			<option value="pcrpositivos7dias">PCR POSITIVOS SINTOMAS 7 DÍAS</option>
+			<option value="totalenfermedad7dias">TOTAL ENFERMEDAD 7 DÍAS</option>
+			<option value="totalenfermedad14dias">TOTAL ENFERMEDAD 14 DÍAS</option>
+			<option value="pcrrealizados">PCR REALIZADOS</option>
+			<option value="pcrpositivossintomas">PCR POSITIVOS SINTOMAS</option>
+			<option value="pcrpositivossintomas14dias">PCR POSITIVOS SINTOMAS 14 DÍAS</option>
+			<option value="tasaenfermedadx100">TASA ENFERMEDAD POR 100</option>
+			<option value="tasaenfermedadx100_7dias">TASA ENFERMEDAD POR 100 7 DÍAS</option>
+			<option value="tasaenfermedadx100_14dias">TASA ENFERMEDAD POR 100 14 DÍAS</option>
+			<option value="tasax100_pcr_realizados">TASA PCR REALIZADOS POR 100</option>
+			<option value="tasax10000_pcr_positivos">TASA PCR POSITIVOS POR 10.000</option>
+			<option value="tasax10000_pcr_positivos_sintomas">TASA PCR POSITIVOS SÍNTOMAS POR 10.000</option>
+			<option value="tasapcr_positivos_sintomasx10000_7dias">TASA PCR POSITIVOS SINTOMAS POR 10.000 7 DÍAS</option>
+			<option value="tasapcr_positivos_sintomasx10000_14dias">TASA PCR POSITIVOS SINTOMAS POR 10.000 14 DÍAS</option>
+		</select>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" value="Mostrar" id="showGraph" />
+		<div id='graphContainer' style='width:98%; height:450px;'><span id="noGraph"><br/><i>El gráfico se cargará aquí</i></span></div>
+	</section>
 	<section class='legal'>
-		<p><b>IMPORTANTE</b>: <i>TOTALENFERMEDAD</i> incluye casos con síntomas compatibles, <i>PCRPOSITIVOS</i> incluye casos que han dado positivo en una prueba PCR.</p><br/>
+		<p><b>IMPORTANTE</b>: <i>TOTAL ENFERMEDAD</i> incluye casos con síntomas compatibles, <i>PCR POSITIVOS</i> incluye casos que han dado positivo en una prueba PCR.</p><br/>
 		<p>Datos diarios en cada zona básica de salud. Actualización de lunes a viernes.</p>
 		<p>Incidencia diaria de pacientes enfermos y de porcentaje de personas enfermas por número de tarjetas sanitarias en cada zona básica de salud. También se indican los enfermos y los porcentajes para los últimos 7 y 14 días.</p>
 		<br/>
