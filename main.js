@@ -492,10 +492,47 @@ $(document).ready(function() {
         name: 'Num. casos',
           data: data,
           showInLegend: false
-      }]
+      }],
+      exporting:{ 
+        buttons: {
+          contextButton: {
+            menuItems: [{
+              textKey: 'downloadPNG',
+              text: 'Descargar PNG',
+              onclick: function () {
+                this.exportChart();
+              }
+            }, {
+              textKey: 'downloadJPEG',
+              text: 'Descargar JPEG',
+              onclick: function () {
+                this.exportChart({
+                  type: 'image/jpeg'
+                });
+              }
+            }, {
+              textKey: 'downloadPDF',
+              text: 'Descargar PDF',
+              onclick: function () {
+                this.exportChart({
+                  type: 'application/pdf'
+                });
+              }
+            }, {
+              textKey: 'downloadSVG',
+              text: 'Descargar SVG',
+              onclick: function () {
+                this.exportChart({
+                  type: 'image/svg+xml'
+                });
+              }
+            }]
+          }
+        }
+        }
     }, function (myChart) {
 
-      myChart.renderer.image('watermark.png',myChart.plotLeft + myChart.plotSizeX - 200, 10, 173, 40)
+      myChart.renderer.image('https://www.bmsalamanca.com/images/CoViDCyL-watermark.png',myChart.plotLeft + myChart.plotSizeX - 200, 10, 173, 40)
             .add();
     });
 
