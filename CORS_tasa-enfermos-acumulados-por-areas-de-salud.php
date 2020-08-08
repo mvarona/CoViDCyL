@@ -78,14 +78,24 @@
 
 			$valueHiddenSumTotalDisease = 0;
 			$valueHiddenSumTotalDisease7Days = 0;
+
+			$valueHiddenSumTotalPCR = 0;
+			$valueHiddenSumTotalPCR7Days = 0;
+
 			for ($i=0; $i < count($jsonArray); $i++) { 
 				$valueHiddenSumTotalDisease += $jsonArray[$i]->fields->totalenfermedad;
 				$valueHiddenSumTotalDisease7Days += $jsonArray[$i]->fields->totalenfermedad_7dias;
+
+				$valueHiddenSumTotalPCR += $jsonArray[$i]->fields->pcr_positivos;
+				$valueHiddenSumTotalPCR7Days += $jsonArray[$i]->fields->pcr_positivos_sintomas_7dias;
 			}
 
 			
-			echo "Actualmente hay registrados " . $valueHiddenSumTotalDisease . " casos totales compatibles activos.<br/>";
-			echo "En los últimos 7 días se han registrado " . $valueHiddenSumTotalDisease7Days . " casos totales compatibles activos.";
+			echo "El " . date("d/m", strtotime($date)) . " se han registrado " . $valueHiddenSumTotalDisease . " nuevos casos compatibles activos.<br/>";
+			echo "En los últimos 7 días se han registrado " . $valueHiddenSumTotalDisease7Days . " nuevos casos compatibles activos.<br/><br/>";
+
+			echo "El " . date("d/m", strtotime($date)) . " se han registrado  " . $valueHiddenSumTotalPCR . " nuevos casos confirmados con PCR.<br/>";
+			echo "En los últimos 7 días se han registrado " . $valueHiddenSumTotalPCR7Days . " nuevos casos confirmados con PCR.";
 
 		}
 	}
