@@ -357,6 +357,8 @@ function buildTable(){
 
 		$('#date_hideTitle').html("Fecha: " + dataObject[0]["fecha"].split("-")[2] + "/" + dataObject[0]["fecha"].split("-")[1] + "/" + dataObject[0]["fecha"].split("-")[0]);
 		$('#hot').addClass("hideTitle");
+    $('#ad1').remove();
+    $('#ad2').remove();
 
 	}
 
