@@ -543,7 +543,7 @@ $(document).ready(function() {
         }
     }, function (myChart) {
 
-      myChart.renderer.image('https://www.bmsalamanca.com/images/CoViDCyL-watermark.png',myChart.plotLeft + myChart.plotSizeX - 200, 10, 173, 40)
+      myChart.renderer.image('https://www.bmsalamanca.com/others/CoViDCyL/watermark.png',myChart.plotLeft + myChart.plotSizeX - 200, 10, 173, 40)
             .add();
     });
 
