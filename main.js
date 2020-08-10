@@ -347,11 +347,12 @@ function buildTable(){
 
   fixedCols = 1;
 
+  $('#date_hideTitle').html("Fecha: " + dataObject[0]["fecha"].split("-")[2] + "/" + dataObject[0]["fecha"].split("-")[1] + "/" + dataObject[0]["fecha"].split("-")[0]);
+
 	if (getUrlParameter("hideTitle") != undefined && getUrlParameter("hideTitle") == "true"){
 
 		// SHORTCUT:
 
-		$('#date_hideTitle').html("Fecha: " + dataObject[0]["fecha"].split("-")[2] + "/" + dataObject[0]["fecha"].split("-")[1] + "/" + dataObject[0]["fecha"].split("-")[0]);
 		$('#hot').addClass("hideTitle");
     $('#graph').remove();
     $('#ad1').remove();
