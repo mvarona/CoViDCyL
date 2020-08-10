@@ -26,10 +26,22 @@
 		<h1><img alt="Logo" src="logo.png"/> Tasa de enfermos por zonas básicas de salud -<br/>Datos CoViD-19 CyL</h1>
 		<h2>Actualización de lunes a viernes</h2>
 		<h2>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h2>
+		<nav id="nav-sections" class="nav-sections">
+			<ul>
+				<li><a href="#table">Tabla completa</a></li>
+				<li><a href="#graph">Gráfico hasta momento actual</a></li>
+				<li><a href="#info">Información</a></li>
+			</ul>
+		</nav>
 		<hr/>
-		<br/>
 	</header>
 	<section class='main'>
+		<a class="anchor" name="table"></a>
+		<nav class="nav-sections">
+			<ul>
+				<li><a href="#">Tabla completa</a></li>
+			</ul>
+		</nav>
 		<div id="form">
 			<label>Fecha: </label>&nbsp;
 			<input type="text" placeholder="dd/mm/yyyy" id="date">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -54,14 +66,16 @@
 		<span id="date_hideTitle"></span>
 		<div id="hot"></div>
 		<span id="no-data"><i>No hay datos para los parámetros indicados, o se están cargando...</i></span>
-		<div id="hiddenInfo">
-			<input type="hidden" id="hiddenSumTotalDisease" valueHiddenSumTotalDisease="Actualmente hay registrados X casos totales activos">
-			<input type="hidden" id="hiddenSumTotalDisease7Days" valueHiddenSumTotalDisease7Days="En los últimos 7 días se han registrado X casos totales activos">
-		</div>
+		<br/>
 	</section>
 	<section id="graph">
+		<a class="anchor" name="graph"></a>
 		<hr/>
-		<br/>
+		<nav class="nav-sections large">
+			<ul>
+				<li><a href="#">Gráfico hasta momento actual</a></li>
+			</ul>
+		</nav>
 		<label>Gráfico: </label>&nbsp;
 		<select id="graph-param">
 			<option value="totalenfermedad">TOTAL ENFERMEDAD</option>
@@ -84,7 +98,14 @@
 		<input type="button" value="Mostrar" id="showGraph" />
 		<div id='graphContainer' style='width:98%; height:450px;'><span id="noGraph"><br/><i>El gráfico se cargará aquí</i></span></div>
 	</section>
+	<hr/>
 	<section class='legal'>
+		<a class="anchor" name="info"></a>
+		<nav class="nav-sections">
+			<ul>
+				<li><a href="#">Información</a></li>
+			</ul>
+		</nav>
 		<p><b>IMPORTANTE</b>: <i>TOTAL ENFERMEDAD</i> incluye casos con síntomas compatibles, <i>PCR POSITIVOS</i> incluye casos que han dado positivo en una prueba PCR.</p><br/>
 		<p>Datos diarios en cada zona básica de salud. Actualización de lunes a viernes.</p>
 		<p>Incidencia diaria de pacientes enfermos y de porcentaje de personas enfermas por número de tarjetas sanitarias en cada zona básica de salud. También se indican los enfermos y los porcentajes para los últimos 7 y 14 días.</p>

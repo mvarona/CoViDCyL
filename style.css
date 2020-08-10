@@ -47,14 +47,16 @@ section.main label, section.main input, section.main select {
 }
 
 .legal {
-	width: 95%;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 4%;
 }
 
 .legal p {
 	text-align: justify;
+	margin-left: auto;
+	margin-right: auto;
+	width: 95%;
 }
 
 #no-data {
@@ -64,4 +66,58 @@ section.main label, section.main input, section.main select {
 
 .hideTitle {
 	font-size: .5em!important;
+}
+
+nav.nav-sections {
+	margin-top: 1%;
+	margin-bottom: 1%;
+	position: relative;
+	z-index: 100;
+}
+
+nav.nav-sections ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: rgba(51,51,51,0.95);
+}
+
+nav.nav-sections ul li {
+	display: inline-block;
+}
+
+nav.nav-sections ul li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 14px;
+	text-decoration: none;
+}
+
+nav.nav-sections ul li a:hover {
+ 	background-color: #111;
+}
+
+section nav.nav-sections {
+	width: 10%;
+	margin-top: -2px;
+	z-index: 100;
+}
+
+section nav.nav-sections.large {
+	width: 20%;
+}
+
+.sticky {
+  position: fixed!important;
+  margin: 0!important;
+  top: 0;
+  width: 100%;
+  z-index: 1000!important;
+}
+
+a.anchor {
+	padding-top: 40px!important;
+	margin-top: -40px!important;
 }
