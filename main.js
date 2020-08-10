@@ -95,10 +95,6 @@ function buildTable(){
 	}
 
 	if (dataObject.length > 0){
-		$('#hiddenSumTotalDisease').attr("valueHiddenSumTotalDisease", $('#hiddenSumTotalDisease').attr("valueHiddenSumTotalDisease").replace("X", sumTotalDisease));
-
-		$('#hiddenSumTotalDisease7Days').attr("valueHiddenSumTotalDisease7Days", $('#hiddenSumTotalDisease7Days').attr("valueHiddenSumTotalDisease7Days").replace("X", sumTotalDisease7Days));
-
 		if (dataObject.length > 0){
 			$('#no-data').hide();
 			$('#hot').show();
