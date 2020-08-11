@@ -81,6 +81,7 @@ nav.nav-sections ul {
 	padding: 0;
 	overflow: hidden;
 	background-color: rgba(51,51,51,0.95);
+	display: inline-block;
 }
 
 nav.nav-sections ul li {
@@ -100,13 +101,17 @@ nav.nav-sections ul li a:hover {
 }
 
 section nav.nav-sections {
-	width: 10%;
+	width: 7%;
 	margin-top: -2px;
 	z-index: 100;
 }
 
 section nav.nav-sections.large {
-	width: 20%;
+	width: 12.3%;
+}
+
+section nav.nav-sections.small {
+	width: 6%;
 }
 
 .sticky {
