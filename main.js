@@ -433,8 +433,8 @@ $(document).ready(function() {
 	var hideTitle = getUrlParameter("hideTitle");
 	var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
 	var curatedData = [];
-  var graphData = {};
-  var graphValues = [];
+  	var graphData = {};
+  	var graphValues = [];
 
 	if (date != undefined && isDate(date)){
 		$('#date').val(date);
@@ -483,6 +483,34 @@ $(document).ready(function() {
 		}
 
 	});
+
+	var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $("#town").autocomplete({
+      source: availableTags
+    });
 
   function sortObject(obj) {
     return Object.keys(obj).sort().reduce(function (result, key) {

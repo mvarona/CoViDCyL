@@ -5,6 +5,8 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script type="text/javascript" src='https://code.highcharts.com/highcharts.js'></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>  
  	<script type="text/javascript" src="https://code.highcharts.com/modules/offline-exporting.js"></script>  
@@ -28,6 +30,7 @@
 		<h2>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h2>
 		<nav id="nav-sections" class="nav-sections">
 			<ul>
+				<li><a href="#town">Municipio</a></li>
 				<li><a href="#table">Tabla completa</a></li>
 				<li><a href="#graph">Gráfico hasta momento actual</a></li>
 				<li><a href="#info">Información</a></li>
@@ -35,8 +38,26 @@
 		</nav>
 		<hr/>
 	</header>
+	<section class='town'>
+		<a class="anchor" name="town"></a>
+		<nav class="nav-sections">
+			<ul>
+				<li><a href="#">Municipio</a></li>
+			</ul>
+		</nav>
+		<div id="form-town">
+			<span id="town-guide">Introduzca el municipio cuya zona básica de salud desea consultar</span>
+			<br/><br/>
+			<input id="town" placeholder="Municipio">
+			<br/><br/>
+			<span id="no-data-town"><i>No hay datos para los parámetros indicados, o se están cargando...</i></span>
+			<br/><br/>
+		</div>
+
+	</section>
 	<section class='main'>
 		<a class="anchor" name="table"></a>
+		<hr/>
 		<nav class="nav-sections">
 			<ul>
 				<li><a href="#">Tabla completa</a></li>

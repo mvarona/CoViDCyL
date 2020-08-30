@@ -54,9 +54,27 @@ div.ht_clone_left td {
 	background-color: #f0f0f0!important;
 }
 
-section.main label, section.main input, section.main select {
+section.main label, section.main input, section.main select, section.town label, section.town input {
 	font-size: 1.3em;
 }
+
+section.town input {
+	border-radius: 8px;
+	border: solid 1px #ddd;
+	width: 40%;
+	padding: .3%;
+}
+
+#no-data-town {
+	display: none;
+}
+
+section.main input[type="text"] {
+	border-radius: 8px;
+	border: solid 1px #ddd;
+	padding: .3%;
+}
+
 
 .legal {
 	width: 100%;
