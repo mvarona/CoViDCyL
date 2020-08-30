@@ -229,119 +229,148 @@ function buildTable(){
   columnsData = [
     {
       data: 'centro',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'totalenfermedad',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'pcr_positivos',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'pcr_positivos_sintomas_7dias',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'tasapcr_positivos_sintomasx10000_7dias',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'tasax100',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'totalenfermedad_7dias',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'tasax100_7dias',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'totalenfermedad_14dias',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'tasax100_14dias',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'pcr_realizados',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'tasax100_pcr_realizados',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'tasax10000_pcr_positivos',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'pcr_positivos_sintomas',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'tasax10000_pcr_positivos_sintomas',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'pcr_positivos_sintomas_14dias',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'tasapcr_positivos_sintomasx10000_14dias',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'x_geo',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'y_geo',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'zbs_geo',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'posicion',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'municipio',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'nombregerencia',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'tsi',
-      type: 'numeric'
+      type: 'numeric',
+      readOnly: true
     },
     {
       data: 'cs',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'provincia',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'tipo_centro',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'gerencia',
-      type: 'text'
+      type: 'text',
+      readOnly: true
     },
     {
       data: 'fecha',
-      type: 'date'
+      type: 'date',
+      readOnly: true
     }
   ];
 
@@ -354,10 +383,9 @@ function buildTable(){
 		// SHORTCUT:
 
 		$('#hot').addClass("hideTitle");
-    $('#graph').remove();
-    $('#ad1').remove();
-    $('#ad2').remove();
-
+	    $('#graph').remove();
+	    $('#ad1').remove();
+	    $('#ad2').remove();
 	}
 
 	var hotElement = document.querySelector('#hot');
@@ -368,7 +396,7 @@ function buildTable(){
 	  columns: columnsData,
 	  stretchH: 'all',
 	  width: '98%',
-	  height: 10 * dataObject.length,
+	  height: 25 * dataObject.length,
 	  autoWrapRow: true,
 	  filters: true,
 	  dropdownMenu: true,
