@@ -75,6 +75,7 @@ section.main input[type="text"] {
 	padding: .3%;
 }
 
+.ui-autocomplete { z-index:999999999999!important;}  
 
 .legal {
 	width: 100%;
