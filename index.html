@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src='https://code.highcharts.com/highcharts.js'></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>  
  	<script type="text/javascript" src="https://code.highcharts.com/modules/offline-exporting.js"></script>  
@@ -48,9 +49,12 @@
 		<div id="form-town">
 			<span id="town-guide">Introduzca el municipio cuya zona básica de salud desea consultar</span>
 			<br/><br/>
-			<input id="town" placeholder="Municipio">
+			<input type="text" id="town" placeholder="Municipio">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" value="Mostrar" id="show-town" />
 			<br/><br/>
 			<span id="no-data-town"><i>No hay datos para los parámetros indicados, o se están cargando...</i></span>
+			
 			<br/><br/>
 		</div>
 

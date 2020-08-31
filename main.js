@@ -521,6 +521,14 @@ $(document).ready(function() {
         }
     });
 
+    $('#show-town').click(function(){
+		if (towns.indexOf($('#town').val()) > -1) {
+		    alert("YES");
+		} else {
+			swal("¡No hemos encontrado el municipio!", "Por favor, intenta elegir uno de los sugeridos o escribe uno cercano", "error");
+		}
+	});
+
   function sortObject(obj) {
     return Object.keys(obj).sort().reduce(function (result, key) {
         result[key] = obj[key];
