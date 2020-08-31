@@ -27,19 +27,26 @@ function addLeadingZeroesToDate(dateTxt){
 	return newDateTxt;
 }
 
-function buildDataQueryURL(dateTxt, officeTxt){
+function buildDataQueryURL(dateTxt, officeTxt, centerCode){
 	var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
 	var codesOffices = ["Gerencia+de+Ávila", "Gerencia+de+Burgos", "Gerencia+de+León", "Gerencia+de+Palencia", "Gerencia+de+Ponferrada", "Gerencia+de+Salamanca", "Gerencia+de+Segovia", "Gerencia+de+Soria", "Gerencia+de+Valladolid+Este", "Gerencia+de+Valladolid+Oeste", "Gerencia+de+Zamora"];
 
 	var officeIndex = possibleOffices.indexOf(officeTxt);
 	var codeOffice = codesOffices[officeIndex];
 
+	var url = "";
+
 	if (dateTxt == undefined || dateTxt.length == 0){
-		return "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?office=" + codeOffice;
+		url += "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?office=" + codeOffice;
 	} else {
-		return "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?date=" + dateTxt + "&office=" + codeOffice;
+		url += "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?date=" + dateTxt + "&office=" + codeOffice;
 	}
 
+	if (centerCode != undefined){
+		url += "&cs=" + centerCode;
+	}
+
+	return url;
 }
 
 function buildGraphDataQueryURL(officeTxt){
@@ -53,13 +60,27 @@ function buildGraphDataQueryURL(officeTxt){
 
 }
 
-function buildForwardingURL(dateTxt, officeTxt){
+function buildForwardingURL(dateTxt, officeTxt, cs){
+	var url = "";
 	if (dateTxt == undefined || dateTxt.length == 0){
-		return "?gerencia=" + officeTxt;
+		url += "?gerencia=" + officeTxt;
 	} else {
-		return "?fecha=" + dateTxt + "&gerencia=" + officeTxt;
+		url += "?fecha=" + dateTxt + "&gerencia=" + officeTxt;
 	}
+
+	if (cs != undefined){
+		url += "&cs=" + cs;
+	}
+
+	return url;
 	
+}
+
+function getOfficetxtForOfficeCode(code){
+	var officeNames = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
+	var officeCodes = ["1701", "1702", "1703", "1705", "1704", "1706", "1707", "1708", "1710", "1709", "1711"];
+
+	return officeNames[officeCodes.indexOf(code)];
 }
 
 function isDate(dateTxt){
@@ -430,6 +451,7 @@ $(document).ready(function() {
 
 	var date = getUrlParameter("fecha");
 	var office = getUrlParameter("gerencia");
+	var centerCode = getUrlParameter("cs");
 	var hideTitle = getUrlParameter("hideTitle");
 	var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
 	var curatedData = [];
@@ -445,7 +467,7 @@ $(document).ready(function() {
 		$("#office option[value=" + office + "]").attr('selected','selected');
 		$.ajax({
 	        type: 'GET',
-	        url: buildDataQueryURL(date, office),
+	        url: buildDataQueryURL(date, office, centerCode),
 	        dataType: 'json',
 	        async: true,
 	        success: function(data) {
@@ -473,13 +495,13 @@ $(document).ready(function() {
 				if (dateTxt.length < 10){
 					dateTxt = addLeadingZeroesToDate(dateTxt);
 				}
-				window.location.href = buildForwardingURL(dateTxt, officeTxt);
+				window.location.href = buildForwardingURL(dateTxt, officeTxt, undefined);
 			} else {
 				alert("El formato de la fecha es incorrecto. Debe ser día/mes/año.");
 			}
 
 		} else if (dateTxt.length == 0){
-			window.location.href = buildForwardingURL(dateTxt, officeTxt);
+			window.location.href = buildForwardingURL(dateTxt, officeTxt, undefined);
 		}
 
 	});
@@ -521,9 +543,27 @@ $(document).ready(function() {
         }
     });
 
+    function readTextFile(file, callback) {
+	    var rawFile = new XMLHttpRequest();
+	    rawFile.overrideMimeType("application/json");
+	    rawFile.open("GET", file, true);
+	    rawFile.onreadystatechange = function() {
+	        if (rawFile.readyState === 4 && rawFile.status == "200") {
+	            callback(rawFile.responseText);
+	        }
+	    }
+	    rawFile.send(null);
+	}
+
     $('#show-town').click(function(){
 		if (towns.indexOf($('#town').val()) > -1) {
-		    alert("YES");
+			var town = $('#town').val();
+		    var officeCode = townsInfo[town]["gerencia"];
+		    var centerCode = townsInfo[town]["cs"];
+
+		    var officeTxt = getOfficetxtForOfficeCode(officeCode);
+		   	window.location.href = buildForwardingURL(undefined, officeTxt, centerCode);
+
 		} else {
 			swal("¡No hemos encontrado el municipio!", "Por favor, intenta elegir uno de los sugeridos o escribe uno cercano", "error");
 		}
