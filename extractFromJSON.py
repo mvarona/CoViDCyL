@@ -41,6 +41,7 @@ def saveJSONFromJSON():
 				result[municipio]["centro"] = item["fields"]["centro"]
 				result[municipio]["gerencia"] = item["fields"]["gerencia"]
 				result[municipio]["cs"] = item["fields"]["cs"]
+				result[municipio]["zbs_geo"] = item["fields"]["zbs_geo"]
 
 		else:
 
@@ -56,6 +57,7 @@ def saveJSONFromJSON():
 			result[municipio]["centro"] = item["fields"]["centro"]
 			result[municipio]["gerencia"] = item["fields"]["gerencia"]
 			result[municipio]["cs"] = item["fields"]["cs"]
+			result[municipio]["zbs_geo"] = item["fields"]["zbs_geo"]
 
 	#with open('municipios.json', 'w') as fp:
 	#	json.dump(result, fp)

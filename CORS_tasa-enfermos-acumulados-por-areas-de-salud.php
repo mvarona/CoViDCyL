@@ -1,4 +1,9 @@
 <?php
+
+	ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 	if (isset($_GET['date']) && isset($_GET['office'])){
 
 		header('Content-Type: application/json');
@@ -13,6 +18,19 @@
 		$url = "https://data.opendatasoft.com/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud@jcyl/download/?format=json&disjunctive.zbs_geo=true&refine.fecha=" . $year . "&refine.fecha=" . $year . "%2F" . $month . "&refine.fecha=" . $year . "%2F" . $month . "%2F" . $day . "&refine.nombregerencia=" . $office . "&timezone=Europe/Berlin";
 
 		$json = file_get_contents($url);
+
+		if (isset($_GET['healthZone'])){
+
+			$healthZone = $_GET['healthZone'];
+
+			$urlIncidence = "https://data.opendatasoft.com/explore/dataset/prevalencia-coronavirus@jcyl/download/?format=json&disjunctive.provincia=true&refine.fecha=" . $year . "&refine.fecha=" . $year . "%2F" . $month . "&refine.fecha=" . $year . "%2F" . $month . "%2F" . $day . "&refine.zbs_geo=" . $healthZone . "&timezone=Europe/Madrid";
+
+			$json = json_decode($json, true);
+			$jsonIncidence = json_decode(file_get_contents($urlIncidence));
+			array_push($json, $jsonIncidence[0]->fields->prevalencia);
+			$json = json_encode($json);
+		}
+
 		echo $json;
 
 	} else if (!isset($_GET['date']) && isset($_GET['office']) && !isset($_GET['graph'])){
@@ -37,6 +55,18 @@
 			$jsonArray = json_decode($json);
 
 		} while (count($jsonArray) == 0);
+
+		if (isset($_GET['healthZone'])){
+
+			$healthZone = $_GET['healthZone'];
+
+			$urlIncidence = "https://data.opendatasoft.com/explore/dataset/prevalencia-coronavirus@jcyl/download/?format=json&disjunctive.provincia=true&refine.fecha=" . $year . "&refine.fecha=" . $year . "%2F" . $month . "&refine.fecha=" . $year . "%2F" . $month . "%2F" . $day . "&refine.zbs_geo=" . $healthZone . "&timezone=Europe/Madrid";
+
+			$json = json_decode($json, true);
+			$jsonIncidence = json_decode(file_get_contents($urlIncidence));
+			array_push($json, $jsonIncidence[0]->fields->prevalencia);
+			$json = json_encode($json);
+		}
 		
 		echo $json;
 

@@ -27,7 +27,7 @@ function addLeadingZeroesToDate(dateTxt){
 	return newDateTxt;
 }
 
-function buildDataQueryURL(dateTxt, officeTxt, centerCode){
+function buildDataQueryURL(dateTxt, officeTxt, healthZone){
 	var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
 	var codesOffices = ["Gerencia+de+Ávila", "Gerencia+de+Burgos", "Gerencia+de+León", "Gerencia+de+Palencia", "Gerencia+de+Ponferrada", "Gerencia+de+Salamanca", "Gerencia+de+Segovia", "Gerencia+de+Soria", "Gerencia+de+Valladolid+Este", "Gerencia+de+Valladolid+Oeste", "Gerencia+de+Zamora"];
 
@@ -42,9 +42,11 @@ function buildDataQueryURL(dateTxt, officeTxt, centerCode){
 		url += "https://www.bmsalamanca.com/others/CoViDCyL/CORS_tasa-enfermos-acumulados-por-areas-de-salud.php?date=" + dateTxt + "&office=" + codeOffice;
 	}
 
-	if (centerCode != undefined){
-		url += "&cs=" + centerCode;
+	if (healthZone != undefined){
+		url += "&healthZone=" + healthZone;
 	}
+
+	console.log(url);
 
 	return url;
 }
@@ -60,7 +62,7 @@ function buildGraphDataQueryURL(officeTxt){
 
 }
 
-function buildForwardingURL(dateTxt, officeTxt, cs){
+function buildForwardingURL(dateTxt, officeTxt, healthZone){
 	var url = "";
 	if (dateTxt == undefined || dateTxt.length == 0){
 		url += "?gerencia=" + officeTxt;
@@ -68,8 +70,8 @@ function buildForwardingURL(dateTxt, officeTxt, cs){
 		url += "?fecha=" + dateTxt + "&gerencia=" + officeTxt;
 	}
 
-	if (cs != undefined){
-		url += "&cs=" + cs;
+	if (healthZone != undefined){
+		url += "&zbs=" + healthZone;
 	}
 
 	return url;
@@ -403,6 +405,7 @@ function buildTable(){
 
 		// SHORTCUT:
 
+		$('section.town').remove();
 		$('#hot').addClass("hideTitle");
 	    $('#graph').remove();
 	    $('#ad1').remove();
@@ -451,7 +454,7 @@ $(document).ready(function() {
 
 	var date = getUrlParameter("fecha");
 	var office = getUrlParameter("gerencia");
-	var centerCode = getUrlParameter("cs");
+	var healthZone = getUrlParameter("zbs");
 	var hideTitle = getUrlParameter("hideTitle");
 	var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
 	var curatedData = [];
@@ -467,7 +470,7 @@ $(document).ready(function() {
 		$("#office option[value=" + office + "]").attr('selected','selected');
 		$.ajax({
 	        type: 'GET',
-	        url: buildDataQueryURL(date, office, centerCode),
+	        url: buildDataQueryURL(date, office, healthZone),
 	        dataType: 'json',
 	        async: true,
 	        success: function(data) {
@@ -559,10 +562,10 @@ $(document).ready(function() {
 		if (towns.indexOf($('#town').val()) > -1) {
 			var town = $('#town').val();
 		    var officeCode = townsInfo[town]["gerencia"];
-		    var centerCode = townsInfo[town]["cs"];
+		    var healthZone = townsInfo[town]["zbs_geo"];
 
 		    var officeTxt = getOfficetxtForOfficeCode(officeCode);
-		   	window.location.href = buildForwardingURL(undefined, officeTxt, centerCode);
+		   	window.location.href = buildForwardingURL(undefined, officeTxt, healthZone);
 
 		} else {
 			swal("¡No hemos encontrado el municipio!", "Por favor, intenta elegir uno de los sugeridos o escribe uno cercano", "error");
