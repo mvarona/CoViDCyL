@@ -61,6 +61,7 @@ section.town table.overview {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 2.5%;
+	margin-bottom: 1%;
 	display: inline-block;
 }
 
@@ -106,6 +107,31 @@ section.town span.info-block-days {
 
 section.town #health-zone-name {
 	font-weight: bold;
+}
+
+section.town span.rate.circle {
+	height: 25px;
+	width: 25px;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: bottom;
+	border: solid 1px #aaa;
+}
+
+section.town span.rate.circle.green {
+	background-color: #3f9f3f;
+}
+
+section.town span.rate.circle.yellow {
+	background-color: #ffff5f;
+}
+
+section.town span.rate.circle.orange {
+	background-color: #ff8000;
+}
+
+section.town span.rate.circle.red {
+	background-color: #ff0000;
 }
 
 section.town span.warning-sentence {

@@ -130,6 +130,7 @@ function buildIncidence(healthZone){
 	newIncidence = incidence[0];
 	newIncidence7d = incidence[1];
 	newIncidence14d = incidence[2];
+	redIncidence = incidence[3];
 
 	rate = dataObject[0]["tasapcr_positivos_sintomasx10000_7dias"].toFixed(2);
 
@@ -155,12 +156,18 @@ function buildIncidence(healthZone){
 
 	rateSentence = "";
 
-	if (rate <= 2.5){
+	if (rate <= 2.5 && redIncidence == 0){
 		rateSentence = "Mantenga la distancia social, mascarilla e higiene respiratoria y de manos. Avise a su centro de salud si tiene síntomas.";
-	} else if (rate > 2.5 && rate < 5){
+		$('#rate-color').addClass("green");
+	} else if (rate > 2.5 && rate < 5 && redIncidence == 0){
 		rateSentence = "Extreme las medidas de precaución y prevención. No realice desplazamientos innecesarios.";
-	} else if (rate >= 5){
+		$('#rate-color').addClass("yellow");
+	} else if (rate >= 5 && redIncidence == 0){
 		rateSentence = "Restrinja al máximo el contacto social. Evite reuniones de más de 10 personas y limite al máximo la exposición en lugares cerrados.";
+		$('#rate-color').addClass("orange");
+	} else if (redIncidence != 0){
+		rateSentence = "Sospecha de transmisión comunitaria, criterio de la Dirección General de Salud Pública. Permanezca en su zona de salud.";
+		$('#rate-color').addClass("red");
 	}
 
 	$('#rate-sentence').html(rateSentence);
