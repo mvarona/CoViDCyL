@@ -104,12 +104,64 @@ function getUrlParameter(sParam) {
     }
 }
 
+function buildIncidence(healthZone){
+
+	dataObject = [];
+	incidence = pureObject[pureObject.length-1]; // Incidence is last item on pureObject
+
+	for (var i = 0; i < pureObject.length-1; i++) {
+		if (pureObject[i]["fields"]["zbs_geo"] == healthZone){
+			dataObject.push(pureObject[i]["fields"]);
+		}
+	}
+
+	nameHealthZone = dataObject[0]["centro"];
+	date = dataObject[0]["fecha"];
+	alert(date);
+	date = moment(date, "YYYY-MM-DD").format("dd/MM/yyyy");;
+	alert(date);
+	newSymptoms = dataObject[0]["totalenfermedad"];
+	newSymptoms7d = dataObject[0]["totalenfermedad_7dias"];
+	newSymptoms14d = dataObject[0]["totalenfermedad_14dias"];
+
+	newPCR = dataObject[0]["pcr_positivos_sintomas"];
+	newPCR7d = dataObject[0]["pcr_positivos_sintomas_7dias"];
+	newPCR14d = dataObject[0]["pcr_positivos_sintomas_14dias"];
+
+	newIncidence = incidence;
+
+	$('#health-zone-name').html(nameHealthZone);
+	$('#health-zone-date').html(date);
+	
+	$('#symptom-number').html(newSymptoms);
+	$('#symptom-number-7d').html(newSymptoms7d);
+	$('#symptom-number-14d').html(newSymptoms14d);
+
+	$('#test-number').html(newPCR);
+	$('#test-number-7d').html(newPCR7d);
+	$('#test-number-14d').html(newPCR14d);
+
+	$('#incidence-number').html(newIncidence);
+
+	$('#data-town').show();
+
+
+}
+
 function buildTable(){
 
 	dataObject = [];
 	
-	for (var i = 0; i < pureObject.length; i++) {
-		dataObject.push(pureObject[i]["fields"]);
+	// Check if last item is a number, if so, don't add it to the table (because it's incidence):
+
+	if (!isNaN(pureObject[pureObject.length-1])) {
+		for (var i = 0; i < pureObject.length-1; i++) {
+			dataObject.push(pureObject[i]["fields"]);
+		}
+	} else {
+		for (var i = 0; i < pureObject.length; i++) {
+			dataObject.push(pureObject[i]["fields"]);
+		}
 	}
 
 	for (var i = 0; i < dataObject.length; i++) {
@@ -467,6 +519,10 @@ $(document).ready(function() {
 
 	if (office != undefined && possibleOffices.includes(office)){
 		$("#office").val(office);
+		$("#town").val(healthZone);
+		if (healthZone != undefined){
+			$('#no-data-town').show();
+		}
 		$("#office option[value=" + office + "]").attr('selected','selected');
 		$.ajax({
 	        type: 'GET',
@@ -476,6 +532,9 @@ $(document).ready(function() {
 	        success: function(data) {
 	            pureObject = data;
 	            buildTable();
+	            if (healthZone != undefined){
+	            	buildIncidence(healthZone);
+	            }
 	        }
 	    });
 	}

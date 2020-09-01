@@ -8,6 +8,7 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 	<script type="text/javascript" src='https://code.highcharts.com/highcharts.js'></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>  
  	<script type="text/javascript" src="https://code.highcharts.com/modules/offline-exporting.js"></script>  
@@ -54,7 +55,73 @@
 			<input type="button" value="Mostrar" id="show-town" />
 			<br/><br/>
 			<span id="no-data-town"><i>No hay datos para los parámetros indicados, o se están cargando...</i></span>
-			
+			<div id="data-town">
+				<span>Este municipio pertenece a la zona de salud de <span id="health-zone-name"></span>, y estos son sus datos más recientes (<span id="health-zone-date"></span>):</span>
+				<br/>
+				<table class="overview">
+					<tbody>
+						<tr>
+							<td>
+								<img alt="Persona estornudando" src="sneeze.png" />
+							</td>
+							<td>
+								<div id="symptom-info">
+									<span><span id="symptom-number" class="info-number"></span> nuevos casos
+									<br/>con <span class="info-highlight">síntomas compatibles</span>
+									</span>
+									<br/>
+									<span class="info-block-days"><span id="symptom-number-7d"></span> en los últimos 7 días</span>
+									<br/>
+									<span><span id="symptom-number-14d"></span> en los últimos 14 días</span>
+								</div>
+							</td>
+						</tr>
+				</table>
+				<table class="overview">
+					<tbody>
+						<tr>
+							<td>
+								<img alt="Matraz de Erlenmeyer" src="test.png" />
+							</td>
+							<td>
+								<div id="test-info">
+									<span><span id="test-number" class="info-number"></span> casos
+									<br/> <span class="info-highlight">confirmados con PCR</span>
+									</span>
+									<br/>
+									<span class="info-block-days"><span id="test-number-7d"></span> en los últimos 7 días</span>
+									<br/>
+									<span><span id="test-number-14d"></span> en los últimos 14 días</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="overview">
+					<tbody>
+						<tr>
+							<td>
+								<img alt="Persona con mascarilla" src="incidence.png" />
+							</td>
+							<td>
+								<div id="incidence-info">
+									<span><span id="incidence-number" class="info-number"></span> casos
+									<br/> <span class="info-highlight">activos actualmente</span>
+									</span>
+									<br/>
+									<span class="info-block-days"><span id="incidence-number-7d"></span> en los últimos 7 días</span>
+									<br/>
+									<span><span id="incidence-number-14d"></span> en los últimos 14 días</span>
+								</div>
+							</td>
+						</tr>
+				</table>
+				<br/>
+				<span id="warning-sentence-similar" class="warning-sentence">La última vez que se alcanzó en esta zona un número parecido de casos activos (<span id="similar-num-cases">X</span>, <span id="similar-num-date">dd/mm/yyyy</span>), tardó en bajar al siguiente mínimo <span id="difference-min-days">Y</span> días (<span id="min-num-cases">Z</span>, <span id="min-num-date">dd/mm/yyyy</span>).</span>
+				<span id="warning-sentence-unique" class="warning-sentence">Nunca se han registrado tantos casos activos en esta zona.</span>
+				<br/>
+				<span>Por favor, sé responsable.</span>
+			</div>
 			<br/><br/>
 		</div>
 

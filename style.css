@@ -38,6 +38,68 @@ span.small {
 	margin-top: 1%;
 }
 
+section.town input[type="text"] {
+	border-radius: 8px;
+	border: solid 1px #ddd;
+	width: 40%;
+	padding: .3%;
+}
+
+#no-data-town {
+	display: none;
+}
+
+.ui-autocomplete { 
+	z-index:999999999999!important;
+}
+
+section.town div#data-town {
+	display: none;
+}
+
+section.town table.overview {
+	width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 2%;
+	display: inline-block;
+}
+
+section.town table.overview tr td {
+	vertical-align: middle;
+	width: 50%;
+}
+
+section.town table.overview {
+	font-size: 1.1em;
+}
+
+section.town table.overview span.info-number {
+	font-size: 3em;
+	color: rgb(190,60,60);
+	font-weight: 1000;
+	line-height: 0;
+}
+
+section.town table.overview span.info-highlight {
+	color: rgb(190,60,60);
+	font-weight: bold;
+}
+
+section.town span.info-block-days {
+	margin-top: 2%;
+	display: inline-block;
+}
+
+section.town #health-zone-name {
+	font-weight: bold;
+}
+
+section.town span.warning-sentence {
+	display: none;
+	margin-top: 1%;
+}
+
 #hot {
 	width: 98%;
 	height: 100%;
@@ -62,24 +124,11 @@ section.main label, section.main input, section.main select, section.town label,
 	font-size: 1.3em;
 }
 
-section.town input[type="text"] {
-	border-radius: 8px;
-	border: solid 1px #ddd;
-	width: 40%;
-	padding: .3%;
-}
-
-#no-data-town {
-	display: none;
-}
-
 section.main input[type="text"] {
 	border-radius: 8px;
 	border: solid 1px #ddd;
 	padding: .3%;
 }
-
-.ui-autocomplete { z-index:999999999999!important;}  
 
 .legal {
 	width: 100%;
