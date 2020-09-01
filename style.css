@@ -58,10 +58,10 @@ section.town div#data-town {
 }
 
 section.town table.overview {
-	width: 30%;
+	width: 32%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 2%;
+	margin-top: 2.5%;
 	display: inline-block;
 }
 

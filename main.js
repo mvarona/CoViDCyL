@@ -117,9 +117,8 @@ function buildIncidence(healthZone){
 
 	nameHealthZone = dataObject[0]["centro"];
 	date = dataObject[0]["fecha"];
-	alert(date);
-	date = moment(date, "YYYY-MM-DD").format("dd/MM/yyyy");;
-	alert(date);
+	date = moment(date, "YYYY-MM-DD").format("DD/MM/yyyy");;
+
 	newSymptoms = dataObject[0]["totalenfermedad"];
 	newSymptoms7d = dataObject[0]["totalenfermedad_7dias"];
 	newSymptoms14d = dataObject[0]["totalenfermedad_14dias"];
@@ -128,7 +127,9 @@ function buildIncidence(healthZone){
 	newPCR7d = dataObject[0]["pcr_positivos_sintomas_7dias"];
 	newPCR14d = dataObject[0]["pcr_positivos_sintomas_14dias"];
 
-	newIncidence = incidence;
+	newIncidence = incidence[0];
+	newIncidence7d = incidence[1];
+	newIncidence14d = incidence[2];
 
 	$('#health-zone-name').html(nameHealthZone);
 	$('#health-zone-date').html(date);
@@ -142,9 +143,11 @@ function buildIncidence(healthZone){
 	$('#test-number-14d').html(newPCR14d);
 
 	$('#incidence-number').html(newIncidence);
+	$('#incidence-number-7d').html(newIncidence7d);
+	$('#incidence-number-14d').html(newIncidence14d);
 
 	$('#data-town').show();
-
+	$('#no-data-town').hide();
 
 }
 
@@ -152,9 +155,9 @@ function buildTable(){
 
 	dataObject = [];
 	
-	// Check if last item is a number, if so, don't add it to the table (because it's incidence):
+	// Check if last item is an array, if so, don't add it to the table (because it's incidence):
 
-	if (!isNaN(pureObject[pureObject.length-1])) {
+	if (Array.isArray(pureObject[pureObject.length-1])) {
 		for (var i = 0; i < pureObject.length-1; i++) {
 			dataObject.push(pureObject[i]["fields"]);
 		}
@@ -163,6 +166,9 @@ function buildTable(){
 			dataObject.push(pureObject[i]["fields"]);
 		}
 	}
+
+	console.log(pureObject);
+	console.log(dataObject);
 
 	for (var i = 0; i < dataObject.length; i++) {
 		sumTotalDisease += dataObject[i]["totalenfermedad"];

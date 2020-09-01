@@ -23,11 +23,15 @@ error_reporting(E_ALL);
 
 			$healthZone = $_GET['healthZone'];
 
-			$urlIncidence = "https://data.opendatasoft.com/explore/dataset/prevalencia-coronavirus@jcyl/download/?format=json&disjunctive.provincia=true&refine.fecha=" . $year . "&refine.fecha=" . $year . "%2F" . $month . "&refine.fecha=" . $year . "%2F" . $month . "%2F" . $day . "&refine.zbs_geo=" . $healthZone . "&timezone=Europe/Madrid";
-
 			$json = json_decode($json, true);
-			$jsonIncidence = json_decode(file_get_contents($urlIncidence));
-			array_push($json, $jsonIncidence[0]->fields->prevalencia);
+			
+			$date = "$day-$month-$year";
+
+			$incidences = array();
+			array_push($incidences, getIncidenceForDate($date, $healthZone));
+			array_push($incidences, getIncidenceForDate("$date -7 days", $healthZone));
+			array_push($incidences, getIncidenceForDate("$date -14 days", $healthZone));
+			array_push($json, $incidences);
 			$json = json_encode($json);
 		}
 
@@ -60,12 +64,17 @@ error_reporting(E_ALL);
 
 			$healthZone = $_GET['healthZone'];
 
-			$urlIncidence = "https://data.opendatasoft.com/explore/dataset/prevalencia-coronavirus@jcyl/download/?format=json&disjunctive.provincia=true&refine.fecha=" . $year . "&refine.fecha=" . $year . "%2F" . $month . "&refine.fecha=" . $year . "%2F" . $month . "%2F" . $day . "&refine.zbs_geo=" . $healthZone . "&timezone=Europe/Madrid";
-
 			$json = json_decode($json, true);
-			$jsonIncidence = json_decode(file_get_contents($urlIncidence));
-			array_push($json, $jsonIncidence[0]->fields->prevalencia);
+			
+			$date = "$day-$month-$year";
+
+			$incidences = array();
+			array_push($incidences, getIncidenceForDate($date, $healthZone));
+			array_push($incidences, getIncidenceForDate("$date -7 days", $healthZone));
+			array_push($incidences, getIncidenceForDate("$date -14 days", $healthZone));
+			array_push($json, $incidences);
 			$json = json_encode($json);
+
 		}
 		
 		echo $json;
@@ -144,6 +153,20 @@ error_reporting(E_ALL);
 			echo "En los últimos 7 días se han registrado " . $valueHiddenSumTotalPCR7Days . " nuevos casos confirmados con PCR.";
 
 		}
+	}
+
+	function getIncidenceForDate($incidenceDate, $healthZone){
+		$date = date('d-m-Y', strtotime($incidenceDate));
+		$day = date('d', strtotime($date));
+		$month = date('m', strtotime($date));
+		$year = date('Y', strtotime($date));
+
+		$urlIncidence = "https://data.opendatasoft.com/explore/dataset/prevalencia-coronavirus@jcyl/download/?format=json&disjunctive.provincia=true&refine.fecha=" . $year . "&refine.fecha=" . $year . "%2F" . $month . "&refine.fecha=" . $year . "%2F" . $month . "%2F" . $day . "&refine.zbs_geo=" . $healthZone . "&timezone=Europe/Madrid";
+
+		$jsonIncidence = json_decode(file_get_contents($urlIncidence));
+		$incidence = $jsonIncidence[0]->fields->prevalencia;
+
+		return $incidence;
 	}
 
 ?>
