@@ -131,6 +131,8 @@ function buildIncidence(healthZone){
 	newIncidence7d = incidence[1];
 	newIncidence14d = incidence[2];
 
+	rate = dataObject[0]["tasapcr_positivos_sintomasx10000_7dias"].toFixed(2);
+
 	$('#health-zone-name').html(nameHealthZone);
 	$('#health-zone-date').html(date);
 	
@@ -149,6 +151,20 @@ function buildIncidence(healthZone){
 	$('#data-town').show();
 	$('#no-data-town').hide();
 
+	$('#rate-num').html(rate);
+
+	rateSentence = "";
+
+	if (rate <= 2.5){
+		rateSentence = "Mantenga la distancia social, mascarilla e higiene respiratoria y de manos. Avise a su centro de salud si tiene síntomas.";
+	} else if (rate > 2.5 && rate < 5){
+		rateSentence = "Extreme las medidas de precaución y prevención. No realice desplazamientos innecesarios.";
+	} else if (rate >= 5){
+		rateSentence = "Restrinja al máximo el contacto social. Evite reuniones de más de 10 personas y limite al máximo la exposición en lugares cerrados.";
+	}
+
+	$('#rate-sentence').html(rateSentence);
+
 }
 
 function buildTable(){
@@ -166,9 +182,6 @@ function buildTable(){
 			dataObject.push(pureObject[i]["fields"]);
 		}
 	}
-
-	console.log(pureObject);
-	console.log(dataObject);
 
 	for (var i = 0; i < dataObject.length; i++) {
 		sumTotalDisease += dataObject[i]["totalenfermedad"];

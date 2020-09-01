@@ -31,6 +31,7 @@ error_reporting(E_ALL);
 			array_push($incidences, getIncidenceForDate($date, $healthZone));
 			array_push($incidences, getIncidenceForDate("$date -7 days", $healthZone));
 			array_push($incidences, getIncidenceForDate("$date -14 days", $healthZone));
+			array_push($incidences, getRedIncidenceForDate($date, $healthZone));
 			array_push($json, $incidences);
 			$json = json_encode($json);
 		}
@@ -72,6 +73,7 @@ error_reporting(E_ALL);
 			array_push($incidences, getIncidenceForDate($date, $healthZone));
 			array_push($incidences, getIncidenceForDate("$date -7 days", $healthZone));
 			array_push($incidences, getIncidenceForDate("$date -14 days", $healthZone));
+			array_push($incidences, getRedIncidenceForDate($date, $healthZone));
 			array_push($json, $incidences);
 			$json = json_encode($json);
 
@@ -167,6 +169,29 @@ error_reporting(E_ALL);
 		$incidence = $jsonIncidence[0]->fields->prevalencia;
 
 		return $incidence;
+	}
+
+	function getRedIncidenceForDate($incidenceDate, $healthZone){
+
+		$date = date('d-m-Y', strtotime($incidenceDate));
+		$day = date('d', strtotime($date));
+		$month = date('m', strtotime($date));
+		$year = date('Y', strtotime($date));
+
+		$urlIncidence = "https://analisis.datosabiertos.jcyl.es/api/records/1.0/analyze/?refine.fecha=" . $year . "-" . $month . "-" . $day . "&maxpoints=0&sort=incidencia&x=zbs_geo&y.incidencia.expr=tasapcr_positivos_sintomasx10000_7dias&y.incidencia.func=SUM&y.incidencia.cumulative=false&y.rojo.expr=sospecha_transmision_comunitaria&y.rojo.func=SUM&y.rojo.cumulative=false&dataset=tasa-enfermos-acumulados-por-areas-de-salud&timezone=Europe%2FBerlin&lang=es";
+
+		$jsonRedIncidence = json_decode(file_get_contents($urlIncidence), true);
+		
+		foreach ($jsonRedIncidence as $item) {
+			if ($item["x"] == $healthZone){
+				if ($item["rojo"] == 0){
+					return 0;
+				} else {
+					return 1;
+				}
+			}
+		}
+
 	}
 
 ?>

@@ -48,7 +48,7 @@
 			</ul>
 		</nav>
 		<div id="form-town">
-			<span id="town-guide">Introduzca el municipio cuya zona básica de salud desea consultar</span>
+			<span id="town-guide">Introduce el municipio cuya zona básica de salud desea consultar</span>
 			<br/><br/>
 			<input type="text" id="town" placeholder="Municipio">
 			&nbsp;&nbsp;&nbsp;&nbsp;
@@ -100,10 +100,10 @@
 				<table class="overview">
 					<tbody>
 						<tr>
-							<td>
+							<td class="visual-fix">
 								<img alt="Persona con mascarilla" src="incidence.png" />
 							</td>
-							<td>
+							<td class="visual-fix">
 								<div id="incidence-info">
 									<span><span id="incidence-number" class="info-number"></span> casos
 									<br/> <span class="info-highlight">activos actualmente</span>
@@ -116,6 +116,8 @@
 							</td>
 						</tr>
 				</table>
+				<br/>
+				<span id="rate">Tasa PCRs positivas/10.000 tarjetas sanitarias: <span id="rate-num"></span>. <span id="rate-sentence"></span></span>
 				<br/>
 				<span id="warning-sentence-similar" class="warning-sentence">La última vez que se alcanzó en esta zona un número parecido de casos activos (<span id="similar-num-cases">X</span>, <span id="similar-num-date">dd/mm/yyyy</span>), tardó en bajar al siguiente mínimo <span id="difference-min-days">Y</span> días (<span id="min-num-cases">Z</span>, <span id="min-num-date">dd/mm/yyyy</span>).</span>
 				<span id="warning-sentence-unique" class="warning-sentence">Nunca se han registrado tantos casos activos en esta zona.</span>
@@ -199,7 +201,7 @@
 			</ul>
 		</nav>
 		<p><b>IMPORTANTE</b>: <i>TOTAL ENFERMEDAD</i> incluye casos con síntomas compatibles, <i>PCR POSITIVOS</i> incluye casos que han dado positivo en una prueba PCR.</p><br/>
-		<p>Datos diarios en cada zona básica de salud. Actualización de lunes a viernes.</p>
+		<p>Datos diarios en cada zona básica de salud. Actualización diaria.</p>
 		<p>Incidencia diaria de pacientes enfermos y de porcentaje de personas enfermas por número de tarjetas sanitarias en cada zona básica de salud. También se indican los enfermos y los porcentajes para los últimos 7 y 14 días.</p>
 		<br/>
 		<p>El cálculo de la incidencia de la enfermedad se ha efectuado teniendo en cuenta el número de afectados en relación con el número de tarjetas por zona básica de salud. No se contabilizan aquellas personas que han dejado de tener síntomas compatibles con COVID19. Los datos se recogen desde el 29 de febrero de 2020.</p>
