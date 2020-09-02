@@ -37,6 +37,7 @@
 				<li><a href="#table">Tabla completa</a></li>
 				<li><a href="#graph">Gráfico hasta momento actual</a></li>
 				<li><a href="#info">Información</a></li>
+				<li><a href="#siri">Atajo de Siri</a></li>
 			</ul>
 		</nav>
 		<hr/>
@@ -213,8 +214,53 @@
 		<br/>
 		<p>Los datos son únicos para cada día salvo que se indique lo contrario (acumulados de 7 y 14 días).</p>
 		<br/>
-		<p>Agradecimientos: <a target="_blank" href="https://www.icons8.com">icons8.com</a>
+		<br/>
+		<hr/>
 	</section>
+	<section class='readme'>
+		<a class="anchor" name="siri"></a>
+		<nav class="nav-sections">
+			<ul>
+				<li><a href="#">Atajo de Siri</a></li>
+			</ul>
+		</nav>
+		<h1 class="code-line" data-line-start=12 data-line-end=13><a id="Atajo_de_Siri_12"></a>Atajo de Siri</h1>
+		<p class="has-line-data" data-line-start="13" data-line-end="14">Es posible preguntarle a Siri* algo como <em>“¿Cuántos casos de CoViD hay aquí?”</em> (o la frase deseada en su lugar), y que responda con el total de casos activos con síntomas compatibles estimados actualmente y en los últimos 7 días (sumatorios de los valores de las columnas <em>totalenfermedad</em> y <em>totalenfermedad_7dias</em>, respectivamente):</p>
+		<br/>
+		<img src="images/screenshot.png" alt="Captura de pantalla ejecutando el atajo" width="400"/>
+		<br/>
+		<p class="has-line-data" data-line-start="18" data-line-end="19">Para ello, sólo hace falta tener instalada la app para iOS <a href="https://apps.apple.com/es/app/atajos/id915249334" target="_blank">Atajos</a>, <a href="https://support.apple.com/es-es/HT210628" target="_blank">Habilitar los atajos compartidos</a> y descargar el atajo pulsando en el siguiente enlace desde el dispositivo iOS:</p>
+		<a href="https://www.icloud.com/shortcuts/e3a6b698a263456f85bb92113eff732c" target="_blank"><img src="https://bmsalamanca.com/others/tempWu/shortcuts-app-icon.jpg" alt="Shortcuts" width="30"/> Descargar atajo</a>
+		<br/>
+		<p class="has-line-data" data-line-start="22" data-line-end="23">Una vez instalado, será necesario que cambies el nombre de la gerencia de la que deseas obtener los últimos datos.<br/>Recuerda que el valor que elijas sólo puede ser uno de los siguientes, respetando mayúsculas y minúsculas:</p>
+		<ul>
+		<li class="has-line-data" data-line-start="24" data-line-end="25">avila</li>
+		<li class="has-line-data" data-line-start="25" data-line-end="26">burgos</li>
+		<li class="has-line-data" data-line-start="26" data-line-end="27">leon</li>
+		<li class="has-line-data" data-line-start="27" data-line-end="28">palencia</li>
+		<li class="has-line-data" data-line-start="28" data-line-end="29">ponferrada</li>
+		<li class="has-line-data" data-line-start="29" data-line-end="30">salamanca</li>
+		<li class="has-line-data" data-line-start="30" data-line-end="31">segovia</li>
+		<li class="has-line-data" data-line-start="31" data-line-end="32">soria</li>
+		<li class="has-line-data" data-line-start="32" data-line-end="33">valladolidEste</li>
+		<li class="has-line-data" data-line-start="33" data-line-end="34">valladolidOeste</li>
+		<li class="has-line-data" data-line-start="34" data-line-end="36">zamora</li>
+		</ul>
+		<p class="has-line-data" data-line-start="36" data-line-end="37">Cambia, por tanto, el valor predeterminado de <em>salamanca</em> a tu gerencia deseada de la lista anterior. Una vez pulses en <em>Listo</em> podrás ejecutar tu atajo. Puedes hacerlo manualmente desde la propia app Atajos, o diciéndole a Siri <em>Oye Siri, ¿Cuántos casos de CoViD hay aquí?</em>.</p>
+		<br/>
+		<h2 class="code-line" data-line-start=38 data-line-end=39><a id="Viendo_la_tabla_desde_el_atajo_38"></a>Viendo la tabla desde el atajo</h2>
+		<p class="has-line-data" data-line-start="40" data-line-end="41">El atajo incluye por defecto la posibilidad de ver una tabla reducida. Para ello, sólo tienes que instalar la app <a href="https://scriptable.app" target="_blank">Scriptable</a>, y crear un nuevo Script (botón +) con el siguiente texto:</p>
+		<pre class="language-js">WebView.loadURL(&quot;https://bmsalamanca.com/es/CoViDCyL?gerencia=salamanca&amp;hideTitle=true&quot;, new Size(0,500), true);</pre>
+		<p class="has-line-data" data-line-start="44" data-line-end="45">De nuevo, puedes cambiar la palabra <em>salamanca</em> por la gerencia que te interese. Por último, guarda el script con el mismo nombre que uses en el Atajo, por defecto es <em>Load CoViD data</em>.</p>
+		<p class="has-line-data" data-line-start="46" data-line-end="47">Si no quieres descargar Scriptable (o alguna app de terceros similar) Siri no podrá cargar una web en miniatura al ejecutar el atajo, pero sí puedes hacer que la abra en Safari sin ninguna app externa. Para ello sólo tienes que sustituir el último bloque del atajo de Siri por el bloque llamado <em>Mostrar sitio web</em>, e introducir la siguiente url: <em>https://bmsalamanca.com/es/CoViDCyL?gerencia=salamanca&amp;hideTitle=true</em>, sustituyendo <em>salamanca</em> por tu gerencia deseada.</p>
+		<br/>
+		<p class="has-line-data" data-line-start="48" data-line-end="49">¡Ya está! Ya tienes un atajo con el que estar informado sobre la incidencia actual de la CoViD-19 en tu cercanía.</p>
+		<br/>
+		<hr/>
+		<p class="has-line-data" data-line-start="52" data-line-end="53">*Para ejecutar Atajos de Siri, se necesita iOS 12 o posterior en el iPhone, el iPod touch o el HomePod, un Apple Watch Series 3 o posterior y iOS 12 o iPadOS o posterior en el iPad.</p>
+	</section>
+	<br/>
+	<p>Agradecimientos: <a target="_blank" href="https://www.icons8.com">icons8.com</a>
 	<script type="text/javascript" src="towns.js"></script>
 	<script type="text/javascript" src="towns_info.js"></script>
 	<script type="text/javascript" src="main.js"></script>
