@@ -1,12 +1,11 @@
 <?php
 
-	ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
 	function getIncidenceForDate($incidenceDate, $healthZone){
+
+		$incidenceDate = str_replace(" ", "%20", $incidenceDate);
+		$healthZone = str_replace(" ", "%20", $healthZone);
 		
-		$urlIncidence = "CORS_prevalencia.php?date=$incidenceDate&healthZone=$healthZone";
+		$urlIncidence = "https://www.bmsalamanca.com/others/CoViDCyL/CORS_prevalencia.php?date=$incidenceDate&healthZone=$healthZone";
 
 		$incidence = json_decode(file_get_contents($urlIncidence), true);
 
@@ -15,7 +14,10 @@ error_reporting(E_ALL);
 
 	function getRedIncidenceForDate($incidenceDate, $healthZone){
 
-		$urlIncidence = "CORS_prevalencia.php?date=$incidenceDate&healthZone=$healthZone&redZones=true";
+		$incidenceDate = str_replace(" ", "%20", $incidenceDate);
+		$healthZone = str_replace(" ", "%20", $healthZone);
+
+		$urlIncidence = "https://www.bmsalamanca.com/others/CoViDCyL/CORS_prevalencia.php?date=$incidenceDate&healthZone=$healthZone&redZones=true";
 
 		$incidence = json_decode(file_get_contents($urlIncidence), true);
 
