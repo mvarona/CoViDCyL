@@ -140,11 +140,11 @@ section.town table.overview tr td {
 
 section.town table.overview tr td.visual-fix:first-child {
 	display: inline-block;
-	margin-left: 10%;
+	margin-left: 25%;
 } 
 
 section.town table.overview tr td.visual-fix:last-child {
-	padding-right: 10%;
+	padding-right: 8%;
 } 
 
 section.town table.overview {
