@@ -184,6 +184,21 @@ function buildIncidence(healthZone){
 
 	$('#rate-sentence').html(rateSentence);
 
+	if (newIncidence > newIncidence7d){
+		$('#incidence-trend').html("⬆️");
+		$('#incidence-trend').attr("title", "Tendencia al alza en comparación con hace 7 días");
+
+	} else if (newIncidence < newIncidence7d){
+		$('#incidence-trend').html("⬇️");
+		$('#incidence-trend').attr("title", "Tendencia a la baja en comparación con hace 7 días");
+
+	} else {
+		$('#incidence-trend').html("➡️");
+		$('#incidence-trend').attr("title", "Tendencia mantenida en comparación con hace 7 días");
+	}
+
+	$('#warning-sentence-similar').css("display", "none");
+	$('#warning-sentence-unique').css("display", "none");
 	$('#loading-stats-minimum').show();
 
 	$.ajax({
@@ -223,7 +238,7 @@ function allIncidencesPredictor(currentIncidence){
 		// No similar day until today:
 
 		$('#warning-sentence-similar').hide();
-		$('#warning-sentence-unique').show();
+		$('#warning-sentence-unique').css("display", "inline-block");
 
 	} else {
 		nextIncidences = Object.values(allIncidences).slice(posFirstSimilarDay, Object.values(allIncidences).length);
@@ -247,7 +262,7 @@ function allIncidencesPredictor(currentIncidence){
 		$('#min-num-date').html(moment(dayWithMinimum, "YYYY-MM-DD").format("DD/MM/yyyy"));
 
 		$('#loading-stats-minimum').hide();
-		$('#warning-sentence-similar').show();
+		$('#warning-sentence-similar').css("display", "inline-block");
 		$('#warning-sentence-unique').hide();
 
 	}

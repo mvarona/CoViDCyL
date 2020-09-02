@@ -32,7 +32,7 @@
 		<h2>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h2>
 		<nav id="nav-sections" class="nav-sections">
 			<ul>
-				<li><a href="#town">Municipio</a></li>
+				<li><a href="#town">Consultar municipio</a></li>
 				<li><a href="#table">Tabla completa</a></li>
 				<li><a href="#graph">Gráfico hasta momento actual</a></li>
 				<li><a href="#info">Información</a></li>
@@ -44,7 +44,7 @@
 		<a class="anchor" name="town"></a>
 		<nav class="nav-sections">
 			<ul class="town">
-				<li><a href="#">Municipio</a></li>
+				<li><a href="#">Consultar municipio</a></li>
 			</ul>
 		</nav>
 		<div id="form-town">
@@ -56,7 +56,7 @@
 			<br/><br/>
 			<span id="no-data-town"><i>No hay datos para los parámetros indicados, o se están cargando...</i></span>
 			<div id="data-town">
-				<span>Este municipio pertenece a la zona de salud de <span id="health-zone-name"></span>, y estos son sus datos más recientes (<span id="health-zone-date"></span>):</span>
+				<span id="info-zone">Este municipio pertenece a la zona de salud de <span id="health-zone-name"></span>, y estos son sus datos más recientes (<span id="health-zone-date"></span>):</span>
 				<br/>
 				<table class="overview">
 					<tbody>
@@ -106,7 +106,7 @@
 							<td class="visual-fix">
 								<div id="incidence-info">
 									<span><span id="incidence-number" class="info-number"></span> casos
-									<br/> <span class="info-highlight">activos actualmente</span>
+									<br/> <span class="info-highlight">activos actualmente</span> <span class="info-highlight" id="incidence-trend"></span>
 									</span>
 									<br/>
 									<span class="info-block-days"><span id="incidence-number-7d"></span> en los últimos 7 días</span>
