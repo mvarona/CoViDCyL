@@ -67,7 +67,7 @@ function buildGraphDataQueryURL(officeTxt){
 
 }
 
-function buildForwardingURL(dateTxt, officeTxt, healthZone){
+function buildForwardingURL(dateTxt, officeTxt, healthZone, town){
 	var url = "";
 	if (dateTxt == undefined || dateTxt.length == 0){
 		url += "?gerencia=" + officeTxt;
@@ -76,7 +76,7 @@ function buildForwardingURL(dateTxt, officeTxt, healthZone){
 	}
 
 	if (healthZone != undefined){
-		url += "&zbs=" + healthZone;
+		url += "&zbs=" + healthZone + "&municipio=" + town;
 	}
 
 	return url;
@@ -613,6 +613,7 @@ $(document).ready(function() {
 	var date = getUrlParameter("fecha");
 	var office = getUrlParameter("gerencia");
 	var healthZone = getUrlParameter("zbs");
+	var town = getUrlParameter("municipio");
 	var hideTitle = getUrlParameter("hideTitle");
 	var possibleOffices = ["avila", "burgos", "leon", "palencia", "ponferrada", "salamanca", "segovia", "soria", "valladolidEste", "valladolidOeste", "zamora"];
 	var curatedData = [];
@@ -625,7 +626,7 @@ $(document).ready(function() {
 
 	if (office != undefined && possibleOffices.includes(office)){
 		$("#office").val(office);
-		$("#town").val(healthZone);
+		$("#town").val(town);
 		if (healthZone != undefined){
 			$('#no-data-town').show();
 		}
@@ -663,13 +664,13 @@ $(document).ready(function() {
 				if (dateTxt.length < 10){
 					dateTxt = addLeadingZeroesToDate(dateTxt);
 				}
-				window.location.href = buildForwardingURL(dateTxt, officeTxt, undefined);
+				window.location.href = buildForwardingURL(dateTxt, officeTxt, undefined, undefined);
 			} else {
 				alert("El formato de la fecha es incorrecto. Debe ser día/mes/año.");
 			}
 
 		} else if (dateTxt.length == 0){
-			window.location.href = buildForwardingURL(dateTxt, officeTxt, undefined);
+			window.location.href = buildForwardingURL(dateTxt, officeTxt, undefined, undefined);
 		}
 
 	});
@@ -730,7 +731,7 @@ $(document).ready(function() {
 		    var healthZone = townsInfo[town]["zbs_geo"];
 
 		    var officeTxt = getOfficetxtForOfficeCode(officeCode);
-		   	window.location.href = buildForwardingURL(undefined, officeTxt, healthZone);
+		   	window.location.href = buildForwardingURL(undefined, officeTxt, healthZone, town);
 
 		} else {
 			swal("¡No hemos encontrado el municipio!", "Por favor, intenta elegir uno de los sugeridos o escribe uno cercano", "error");
