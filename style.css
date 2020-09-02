@@ -139,6 +139,17 @@ section.town span.warning-sentence {
 	margin-top: 1%;
 }
 
+section.town #loading-stats-minimum {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+}
+
+section.town #difference-min-days {
+	color: rgb(190,60,60);
+	font-weight: bold;
+}
+
 #hot {
 	width: 98%;
 	height: 100%;
@@ -205,6 +216,10 @@ nav.nav-sections ul {
 	overflow: hidden;
 	background-color: rgba(51,51,51,0.95);
 	display: inline-block;
+}
+
+nav.nav-sections ul.town {
+	margin-left: -5px;
 }
 
 header nav.nav-sections ul {

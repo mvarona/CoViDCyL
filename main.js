@@ -3,6 +3,7 @@ var dataObject; // Fetch only relevant fields
 
 pureObject = [];
 dataObject = [];
+pureAllIncidences = [];
 
 var sumTotalDisease = 0;
 var sumTotalDisease7Days = 0;
@@ -46,7 +47,11 @@ function buildDataQueryURL(dateTxt, officeTxt, healthZone){
 		url += "&healthZone=" + healthZone;
 	}
 
-	console.log(url);
+	return url;
+}
+
+function buildAllIncidenceURL(healthZone){
+	var url = "https://www.bmsalamanca.com/others/CoViDCyL/CORS_prevalencia.php?all=true&healthZone=" + healthZone;
 
 	return url;
 }
@@ -104,6 +109,13 @@ function getUrlParameter(sParam) {
     }
 }
 
+function sortObject(obj) {
+    return Object.keys(obj).sort().reduce(function (result, key) {
+        result[key] = obj[key];
+        return result;
+    }, {});
+}
+
 function buildIncidence(healthZone){
 
 	dataObject = [];
@@ -117,7 +129,7 @@ function buildIncidence(healthZone){
 
 	nameHealthZone = dataObject[0]["centro"];
 	date = dataObject[0]["fecha"];
-	date = moment(date, "YYYY-MM-DD").format("DD/MM/yyyy");;
+	date = moment(date, "YYYY-MM-DD").format("DD/MM/yyyy");
 
 	newSymptoms = dataObject[0]["totalenfermedad"];
 	newSymptoms7d = dataObject[0]["totalenfermedad_7dias"];
@@ -157,20 +169,88 @@ function buildIncidence(healthZone){
 	rateSentence = "";
 
 	if (rate <= 2.5 && redIncidence == 0){
-		rateSentence = "Mantenga la distancia social, mascarilla e higiene respiratoria y de manos. Avise a su centro de salud si tiene síntomas.";
+		rateSentence = "Mantén la distancia social, mascarilla e higiene respiratoria y de manos. Avisa a tu centro de salud si tienes síntomas.";
 		$('#rate-color').addClass("green");
 	} else if (rate > 2.5 && rate < 5 && redIncidence == 0){
-		rateSentence = "Extreme las medidas de precaución y prevención. No realice desplazamientos innecesarios.";
+		rateSentence = "Extrema las medidas de precaución y prevención. No realices desplazamientos innecesarios.";
 		$('#rate-color').addClass("yellow");
 	} else if (rate >= 5 && redIncidence == 0){
-		rateSentence = "Restrinja al máximo el contacto social. Evite reuniones de más de 10 personas y limite al máximo la exposición en lugares cerrados.";
+		rateSentence = "Restringe al máximo el contacto social. Evita reuniones de más de 10 personas y limita al máximo la exposición en lugares cerrados.";
 		$('#rate-color').addClass("orange");
 	} else if (redIncidence != 0){
-		rateSentence = "Sospecha de transmisión comunitaria, criterio de la Dirección General de Salud Pública. Permanezca en su zona de salud.";
+		rateSentence = "Sospecha de transmisión comunitaria, criterio de la Dirección General de Salud Pública. Permanece en tu zona de salud.";
 		$('#rate-color').addClass("red");
 	}
 
 	$('#rate-sentence').html(rateSentence);
+
+	$('#loading-stats-minimum').show();
+
+	$.ajax({
+        type: 'GET',
+        url: buildAllIncidenceURL(healthZone),
+        dataType: 'json',
+        async: true,
+        success: function(data) {
+            pureAllIncidences = data;
+            allIncidencesPredictor(newIncidence);
+        }
+    });
+
+}
+
+function allIncidencesPredictor(currentIncidence){
+
+	allIncidences = {};
+
+	for (var i = 0; i < pureAllIncidences.length; i++) {
+		allIncidences[pureAllIncidences[i]["fields"]["fecha"]] = pureAllIncidences[i]["fields"]["prevalencia"];
+	}
+
+	allIncidences = sortObject(allIncidences);
+	firstSimilarDay = "";
+	posFirstSimilarDay = 0;
+
+	for (var i = 0; i < Object.values(allIncidences).length-1; i++) {
+		if (Object.values(allIncidences)[i] <= currentIncidence && Object.values(allIncidences)[i+1] >= currentIncidence){
+			firstSimilarDay = Object.keys(allIncidences)[i+1];
+			posFirstSimilarDay = i+1;
+			break;
+		}
+	}
+
+	if (firstSimilarDay == ""){
+		// No similar day until today:
+
+		$('#warning-sentence-similar').hide();
+		$('#warning-sentence-unique').show();
+
+	} else {
+		nextIncidences = Object.values(allIncidences).slice(posFirstSimilarDay, Object.values(allIncidences).length);
+		minNextIncidences = Math.min.apply(Math, nextIncidences);
+		posMinNextIncidences = 0;
+
+		for (var i = posFirstSimilarDay; i < Object.values(allIncidences).length; i++) {
+			if (Object.values(allIncidences)[i] == minNextIncidences){
+				posMinNextIncidences = i;
+				break;
+			}
+		}
+
+		dayWithMinimum = Object.keys(allIncidences)[posMinNextIncidences];
+		daysBetweenSimilarAndMinimum = posMinNextIncidences - posFirstSimilarDay;
+
+		$('#similar-num-cases').html(allIncidences[firstSimilarDay]);
+		$('#similar-num-date').html(moment(firstSimilarDay, "YYYY-MM-DD").format("DD/MM/yyyy"));
+		$('#difference-min-days').html(daysBetweenSimilarAndMinimum);
+		$('#min-num-cases').html(minNextIncidences);
+		$('#min-num-date').html(moment(dayWithMinimum, "YYYY-MM-DD").format("DD/MM/yyyy"));
+
+		$('#loading-stats-minimum').hide();
+		$('#warning-sentence-similar').show();
+		$('#warning-sentence-unique').hide();
+
+	}
 
 }
 
@@ -656,13 +736,6 @@ $(document).ready(function() {
 			swal("¡No hemos encontrado el municipio!", "Por favor, intenta elegir uno de los sugeridos o escribe uno cercano", "error");
 		}
 	});
-
-  function sortObject(obj) {
-    return Object.keys(obj).sort().reduce(function (result, key) {
-        result[key] = obj[key];
-        return result;
-    }, {});
-  }
 
   function getNameGraphOption(graphOption){
     return $("#graph-param option[value='" + graphOption + "']").html();
