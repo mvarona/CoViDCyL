@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>CoViD - CyL - Tabla completa diaria tasa enfermos por zona básica de salud - Castilla y León</title>
+	<title>CoViD - CyL - Toda la información de la CoViD-19 para tu municipio - Tabla completa de tasa enfermos por zona básica de salud - Gráficos para tu provincia - Atajo para Siri - Castilla y León</title>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -14,22 +14,23 @@
  	<script type="text/javascript" src="https://code.highcharts.com/modules/offline-exporting.js"></script>  
 	<script type="text/javascript" src="https://code.highcharts.com/modules/export-data.js"></script>
 	<meta charset="utf-8">
+	<meta name="description" content="Toda la información de la CoViD-19 para tu municipio: Tabla completa de tasa enfermos por zona básica de salud, gráficos para tu provincia, atajo para Siri y más... - Estadísticas coronavirus SARS-CoV-2 (CoViD-19) - Castilla y León">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<meta http-equiv="Content-Language" content="es"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+	<link rel="manifest" href="images/site.webmanifest">
+	<link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
 </head>
 <body>
 	<header>
-		<h1><img alt="Logo" src="logo.png"/> Tasa de enfermos por zonas básicas de salud -<br/>Datos CoViD-19 CyL</h1>
+		<h1><img alt="Logo" src="images/logo.png"/> Información relevante para tu municipio y provincia<br/>Datos CoViD-19 CyL</h1>
 		<h2>Actualización diaria</h2>
-		<h2>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h2>
+		<h3>Fuente: <a href="https://analisis.datosabiertos.jcyl.es/explore/dataset/tasa-enfermos-acumulados-por-areas-de-salud/table/" target="_blank">Datos abiertos de CyL</a></h3>
 		<nav id="nav-sections" class="nav-sections">
 			<ul>
 				<li><a href="#town">Consultar municipio</a></li>
@@ -62,7 +63,7 @@
 					<tbody>
 						<tr>
 							<td>
-								<img alt="Persona estornudando" src="sneeze.png" />
+								<img alt="Persona estornudando" src="images/sneeze.png" />
 							</td>
 							<td>
 								<div id="symptom-info">
@@ -81,7 +82,7 @@
 					<tbody>
 						<tr>
 							<td>
-								<img alt="Matraz de Erlenmeyer" src="test.png" />
+								<img alt="Matraz de Erlenmeyer" src="images/test.png" />
 							</td>
 							<td>
 								<div id="test-info">
@@ -101,7 +102,7 @@
 					<tbody>
 						<tr>
 							<td class="visual-fix">
-								<img alt="Persona con mascarilla" src="incidence.png" />
+								<img alt="Persona con mascarilla" src="images/incidence.png" />
 							</td>
 							<td class="visual-fix">
 								<div id="incidence-info">
@@ -214,6 +215,7 @@
 		<br/>
 		<p>Agradecimientos: <a target="_blank" href="https://www.icons8.com">icons8.com</a>
 	</section>
+	<script type="text/javascript" src="towns.js"></script>
 	<script type="text/javascript" src="towns_info.js"></script>
 	<script type="text/javascript" src="main.js"></script>
 </body>

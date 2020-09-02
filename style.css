@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Hind:wght@300&display=swap');
+
+/* *** GLOBAL: *** */
+
 * {
 	margin: 0;
 	padding: 0;
@@ -36,6 +39,66 @@ span.small {
 	display: inline-block;
 	margin-top: 1%;
 }
+
+.hideTitle {
+	font-size: .5em!important;
+}
+
+nav.nav-sections {
+	margin-top: 1%;
+	margin-bottom: 1%;
+	position: relative;
+	z-index: 100;
+}
+
+nav.nav-sections ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: rgba(51,51,51,0.95);
+	display: inline-block;
+}
+
+nav.nav-sections ul.town {
+	margin-left: -5px;
+}
+
+header nav.nav-sections ul {
+	width: 100%;
+}
+
+nav.nav-sections ul li {
+	display: inline-block;
+}
+
+nav.nav-sections ul li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 14px;
+	text-decoration: none;
+}
+
+nav.nav-sections ul li a:hover {
+ 	background-color: #111;
+}
+
+section nav.nav-sections {
+	width: 7%;
+	margin-top: -2px;
+	z-index: 100;
+}
+
+section nav.nav-sections.large {
+	width: 12.3%;
+}
+
+section nav.nav-sections.small {
+	width: 6%;
+}
+
+/* *** TOWN: *** */
 
 section.town input[type="text"] {
 	border-radius: 8px;
@@ -161,6 +224,8 @@ section.town #difference-min-days {
 	font-weight: bold;
 }
 
+/* *** TABLE: *** */
+
 #hot {
 	width: 98%;
 	height: 100%;
@@ -191,80 +256,9 @@ section.main input[type="text"] {
 	padding: .3%;
 }
 
-.legal {
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.legal p {
-	text-align: justify;
-	margin-left: auto;
-	margin-right: auto;
-	width: 95%;
-}
-
 #no-data {
 	margin-top: 4%;
 	display: block;
-}
-
-.hideTitle {
-	font-size: .5em!important;
-}
-
-nav.nav-sections {
-	margin-top: 1%;
-	margin-bottom: 1%;
-	position: relative;
-	z-index: 100;
-}
-
-nav.nav-sections ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	background-color: rgba(51,51,51,0.95);
-	display: inline-block;
-}
-
-nav.nav-sections ul.town {
-	margin-left: -5px;
-}
-
-header nav.nav-sections ul {
-	width: 100%;
-}
-
-nav.nav-sections ul li {
-	display: inline-block;
-}
-
-nav.nav-sections ul li a {
-	display: block;
-	color: white;
-	text-align: center;
-	padding: 14px 14px;
-	text-decoration: none;
-}
-
-nav.nav-sections ul li a:hover {
- 	background-color: #111;
-}
-
-section nav.nav-sections {
-	width: 7%;
-	margin-top: -2px;
-	z-index: 100;
-}
-
-section nav.nav-sections.large {
-	width: 12.3%;
-}
-
-section nav.nav-sections.small {
-	width: 6%;
 }
 
 .sticky {
@@ -278,6 +272,21 @@ section nav.nav-sections.small {
 a.anchor {
 	padding-top: 40px!important;
 	margin-top: -40px!important;
+}
+
+/* *** FOOTER: *** */
+
+.legal {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.legal p {
+	text-align: justify;
+	margin-left: auto;
+	margin-right: auto;
+	width: 95%;
 }
 
 section.readme p {
