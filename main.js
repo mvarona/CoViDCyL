@@ -135,7 +135,7 @@ function buildIncidence(healthZone){
 	newSymptoms7d = dataObject[0]["totalenfermedad_7dias"];
 	newSymptoms14d = dataObject[0]["totalenfermedad_14dias"];
 
-	newPCR = dataObject[0]["pcr_positivos_sintomas"];
+	newPCR = dataObject[0]["pcr_positivos"];
 	newPCR7d = dataObject[0]["pcr_positivos_sintomas_7dias"];
 	newPCR14d = dataObject[0]["pcr_positivos_sintomas_14dias"];
 
