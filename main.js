@@ -208,13 +208,13 @@ function buildIncidence(healthZone){
         async: true,
         success: function(data) {
             pureAllIncidences = data;
-            allIncidencesPredictor(newIncidence);
+            allIncidencesPredictor(newIncidence, dataObject[0]["fecha"]);
         }
     });
 
 }
 
-function allIncidencesPredictor(currentIncidence){
+function allIncidencesPredictor(currentIncidence, lastDate){
 
 	allIncidences = {};
 
@@ -234,7 +234,7 @@ function allIncidencesPredictor(currentIncidence){
 		}
 	}
 
-	if (firstSimilarDay == ""){
+	if (firstSimilarDay == lastDate){
 		// No similar day until today:
 
 		$('#warning-sentence-similar').hide();
