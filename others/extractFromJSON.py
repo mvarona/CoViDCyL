@@ -37,11 +37,14 @@ def saveJSONFromJSON():
 				if (checkIfNameIsACapitalCity(municipio)):
 					municipio = item["fields"]["zbs_geo"]
 
-				result[municipio] = {}
-				result[municipio]["centro"] = item["fields"]["centro"]
-				result[municipio]["gerencia"] = item["fields"]["gerencia"]
-				result[municipio]["cs"] = item["fields"]["cs"]
-				result[municipio]["zbs_geo"] = item["fields"]["zbs_geo"]
+				if (municipio not in result):
+					result[municipio] = {}
+					#result[municipio]["centro"] = item["fields"]["centro"]
+					#result[municipio]["gerencia"] = item["fields"]["gerencia"]
+					#result[municipio]["cs"] = item["fields"]["cs"]
+					#result[municipio]["zbs_geo"] = item["fields"]["zbs_geo"]
+				else:
+					print(municipio)
 
 		else:
 
@@ -53,11 +56,14 @@ def saveJSONFromJSON():
 			if (checkIfNameIsACapitalCity(municipio)):
 					municipio = item["fields"]["zbs_geo"]
 
-			result[municipio] = {}
-			result[municipio]["centro"] = item["fields"]["centro"]
-			result[municipio]["gerencia"] = item["fields"]["gerencia"]
-			result[municipio]["cs"] = item["fields"]["cs"]
-			result[municipio]["zbs_geo"] = item["fields"]["zbs_geo"]
+			if (municipio not in result):
+				result[municipio] = {}
+				#result[municipio]["centro"] = item["fields"]["centro"]
+				#result[municipio]["gerencia"] = item["fields"]["gerencia"]
+				#result[municipio]["cs"] = item["fields"]["cs"]
+				#result[municipio]["zbs_geo"] = item["fields"]["zbs_geo"]
+			else:
+				print(municipio)
 
 	#with open('municipios.json', 'w') as fp:
 	#	json.dump(result, fp)
@@ -74,6 +80,6 @@ def printFieldFromJSON():
 	print(result)
 	print(len(result))
 
-#saveJSONFromJSON()
+saveJSONFromJSON()
 
-printFieldFromJSON()
+#printFieldFromJSON()
