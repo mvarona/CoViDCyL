@@ -237,6 +237,7 @@ function allIncidencesPredictor(currentIncidence, lastDate){
 	if (firstSimilarDay == lastDate){
 		// No similar day until today:
 
+    $('#loading-stats-minimum').hide();
 		$('#warning-sentence-similar').hide();
 		$('#warning-sentence-unique').css("display", "inline-block");
 
